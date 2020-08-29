@@ -9,7 +9,9 @@
         "build": "rm -fr .cache dist && parcel build index.html --public-url '.'"
     },
     "dependencies": {
-        "bulma": "^0.9.0"
+        "bulma": "^0.9.0",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1"
     },
     "devDependencies": {
         "parcel": "^1.12.4",
