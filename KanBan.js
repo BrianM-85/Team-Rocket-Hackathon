@@ -1,22 +1,54 @@
 import React, { useState, useEffect } from "react";
 
 const KanBan = () => {
-  const [value, setValue] = useState(localStorage.getItem('myValueInLocalStorage') || "")
- 
-  const onChange = event => setValue(event.target.value);
+  var storedValues = JSON.parse(localStorage.getItem("LocalStorageValues"))
+
+  const [userValues, setUserValues] = useState(
+    // storedValues || 
+    [
+      {"To Do": 
+        {"Eat Lunch": null, "Work Out": null}
+      },
+      {"In Progress": 
+        {"Code Poorly": null, "Drink Water": null}
+      }
+    ]
+  )
 
   useEffect(() => {
-    localStorage.setItem('myValueInLocalStorage', value);
-  }, [value]);
+    localStorage.setItem('LocalStorageValues', JSON.stringify(userValues));
+  }, [userValues]);
 
+  const listValues = userValues.map((object) => {
+    let tasks = Object.values(object)
+    debugger
+    tasks.map((task, description) => {
+      debugger
+      return(
+        <li>{task}</li>
+      )
+    })
+    return (
+      <div>
+        {Object.keys(object)}
+        <ul>{tasks}</ul>
+      </div>
+    )
+  }
+  )
 
   return (
     <div>
-      <p>Hello from the KanBan</p> 
-
-      <input defaultValue={value} type="text" onChange={onChange} />
+      <label>New Column:</label>
+      <input type="text" id="column_name" name="column_name"/>
+      <button onClick={() => {setUserValues(
+        [...userValues,
+        document.getElementById("column_name").value]
+        )}}>Create</button>  
   
-      <p>{value}</p>
+      <p>Things to do:</p>
+      {/* <ul>{listValues}</ul> */}
+      
     </div>
   )
 };
