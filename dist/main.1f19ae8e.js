@@ -28299,6 +28299,16 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -28312,23 +28322,43 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var KanBan = function KanBan() {
-  var _useState = (0, _react.useState)(localStorage.getItem('myValueInLocalStorage') || ""),
-      _useState2 = _slicedToArray(_useState, 2),
-      value = _useState2[0],
-      setValue = _useState2[1];
+  var storedValues = JSON.parse(localStorage.getItem("LocalStorageValues"));
 
-  var onChange = function onChange(event) {
-    return setValue(event.target.value);
-  };
+  var _useState = (0, _react.useState)( // storedValues || 
+  [{
+    "To Do": _defineProperty({
+      name: "Eat Lunch"
+    }, "name", "Work Out")
+  }, {
+    "In Progress": _defineProperty({
+      name: "Code Poorly"
+    }, "name", "Drink Water")
+  }]),
+      _useState2 = _slicedToArray(_useState, 2),
+      userValues = _useState2[0],
+      setUserValues = _useState2[1];
 
   (0, _react.useEffect)(function () {
-    localStorage.setItem('myValueInLocalStorage', value);
-  }, [value]);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "Hello from the KanBan"), /*#__PURE__*/_react.default.createElement("input", {
-    defaultValue: value,
+    localStorage.setItem('LocalStorageValues', JSON.stringify(userValues));
+  }, [userValues]);
+  var listValues = userValues.map(function (object) {
+    var tasks = Object.values(object);
+    debugger;
+    tasks.map(function (task) {
+      debugger;
+      return /*#__PURE__*/_react.default.createElement("li", null, task.name);
+    });
+    return /*#__PURE__*/_react.default.createElement("div", null, Object.keys(object), /*#__PURE__*/_react.default.createElement("ul", null, tasks[0]));
+  });
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("label", null, "New Column:"), /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
-    onChange: onChange
-  }), /*#__PURE__*/_react.default.createElement("p", null, value));
+    id: "column_name",
+    name: "column_name"
+  }), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: function onClick() {
+      setUserValues([].concat(_toConsumableArray(userValues), [document.getElementById("column_name").value]));
+    }
+  }, "Create"), /*#__PURE__*/_react.default.createElement("p", null, "Things to do:"), /*#__PURE__*/_react.default.createElement("ul", null, listValues));
 };
 
 var _default = KanBan;
@@ -28393,7 +28423,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61924" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53606" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

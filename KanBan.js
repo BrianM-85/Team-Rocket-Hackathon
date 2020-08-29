@@ -7,10 +7,10 @@ const KanBan = () => {
     // storedValues || 
     [
       {"To Do": 
-        {"Eat Lunch": null, "Work Out": null}
+        {name: "Eat Lunch", name: "Work Out"}
       },
       {"In Progress": 
-        {"Code Poorly": null, "Drink Water": null}
+        {name: "Code Poorly", name: "Drink Water"}
       }
     ]
   )
@@ -22,10 +22,10 @@ const KanBan = () => {
   const listValues = userValues.map((object) => {
     let tasks = Object.values(object)
     debugger
-    tasks.map((task, description) => {
+    tasks.map((task) => {
       debugger
       return(
-        <li>{task}</li>
+        <li>{task.name}</li>
       )
     })
     return (
@@ -34,8 +34,7 @@ const KanBan = () => {
         <ul>{tasks}</ul>
       </div>
     )
-  }
-  )
+  })
 
   return (
     <div>
@@ -47,7 +46,7 @@ const KanBan = () => {
         )}}>Create</button>  
   
       <p>Things to do:</p>
-      {/* <ul>{listValues}</ul> */}
+      <ul>{listValues}</ul>
       
     </div>
   )
