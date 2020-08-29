@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const CardModal = (props) => {
   // id = task1 
-  const cardData = "localStorage.getItem(id)"
+  const cardData = "localStorage.getItem(selectedCard)"
   // = {title: "title"
 //            description: "description"}
 
@@ -11,7 +11,7 @@ const CardModal = (props) => {
 
   let isActive = false;
 
-  if (props.selectedCard === props.id && props.selectedCard) {
+  if (props.selectedCard) {
     isActive = true;
   } else {
     isActive = false;

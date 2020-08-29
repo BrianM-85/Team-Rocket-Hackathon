@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import CardModal from "./components/CardModal";
+import AddCard from "./components/AddCard";
 const App = () => {
   const [selectedCard, setSelectedCard] = useState(null)
   const setSelectedCardFunction = (taskNumber) => {
@@ -21,7 +22,8 @@ const App = () => {
         Click for Modal
       </div>
       
-      <CardModal id={selectedCard} selectedCard={selectedCard} setSelectedCard={setSelectedCard}/>
+      <CardModal selectedCard={selectedCard} setSelectedCard={setSelectedCard}/>
+      <AddCard />
     </>
   );
 };
