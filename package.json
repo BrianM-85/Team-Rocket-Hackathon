@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "name": "Team-Rocket-Hackathon",
     "description": "This project was generated from the Mintbean bulma-theme template using the mintbean-cli tool.",
     "version": "1.0.0",
@@ -18,4 +19,28 @@
         "parcel": "^1.12.4",
         "sass": "^1.26.10"
     }
+=======
+  "name": "Team-Rocket-Hackathon",
+  "description": "This project was generated from the Mintbean bulma-theme template using the mintbean-cli tool.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "rm -fr .cache dist && parcel build index.html --public-url '.'",
+    "css-build": "node-sass --omit-source-map-url src/bulma-theme.scss src/bulma-theme.css",
+    "css-watch": "npm run css-build -- --watch",
+    "css-start": "npm run css-watch"
+  },
+  "dependencies": {
+    "bulma": "^0.9.0",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "sass": "^1.26.10"
+  }
+>>>>>>> 85e267e2f4c9f77e23548e3570803be706d3ec1b
 }
