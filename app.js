@@ -1,8 +1,12 @@
 import React from 'react';
+import KanBan from './KanBan';
 
 const App = () => {
   return (
-    <p>Hello from App component! Changes!</p>
+    <div>
+      <p>Hello from App component! Changes!</p>
+      <KanBan />
+    </div>
   )
 };
 
