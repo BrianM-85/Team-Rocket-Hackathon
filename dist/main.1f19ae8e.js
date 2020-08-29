@@ -28285,7 +28285,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"App.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"components/CardModal.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -28293,17 +28293,122 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var CardModal = function CardModal(props) {
+  // id = task1 
+  var cardData = "localStorage.getItem(id)"; // = {title: "title"
+  //            description: "description"}
+
+  var title = "cardData.title";
+  var description = "cardData.description";
+  var isActive = false;
+
+  if (props.selectedCard === props.id && props.selectedCard) {
+    isActive = true;
+  } else {
+    isActive = false;
+  }
+
+  var closeFunction = function closeFunction() {
+    props.setSelectedCard(null);
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", {
+    id: props.id,
+    className: "modal ".concat(isActive ? "is-active" : ""),
+    tabIndex: "0",
+    onBlur: closeFunction
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "modal-background"
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: "modal-card"
+  }, /*#__PURE__*/_react.default.createElement("header", {
+    className: "modal-card-head"
+  }, /*#__PURE__*/_react.default.createElement("p", {
+    className: "modal-card-title"
+  }, title), /*#__PURE__*/_react.default.createElement("button", {
+    className: "delete",
+    onClick: closeFunction,
+    "aria-label": "close"
+  })), /*#__PURE__*/_react.default.createElement("section", {
+    className: "modal-card-body"
+  }), /*#__PURE__*/_react.default.createElement("footer", {
+    className: "modal-card-foot"
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    className: "button is-success"
+  }, "Save changes"), /*#__PURE__*/_react.default.createElement("button", {
+    className: "button"
+  }, "Cancel"))));
+};
+
+var _default = CardModal;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _CardModal = _interopRequireDefault(require("./components/CardModal"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 var App = function App() {
-  return /*#__PURE__*/_react.default.createElement("p", null, "Hello from App component! Changes!");
+  var _useState = (0, _react.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      selectedCard = _useState2[0],
+      setSelectedCard = _useState2[1];
+
+  var setSelectedCardFunction = function setSelectedCardFunction(taskNumber) {
+    // search for CardModal with an id===taskNumber
+    // set className of matching CardModal === is active
+    if (selectedCard == null) {
+      setSelectedCard(taskNumber);
+    } else {
+      setSelectedCard(null);
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+    className: "card",
+    onClick: function onClick() {
+      return setSelectedCardFunction("task1");
+    }
+  }, "Click for Modal"), /*#__PURE__*/_react.default.createElement(_CardModal.default, {
+    id: selectedCard,
+    selectedCard: selectedCard,
+    setSelectedCard: setSelectedCard
+  }));
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"main.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./components/CardModal":"components/CardModal.js"}],"main.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -28343,7 +28448,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57210" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56673" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
