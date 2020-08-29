@@ -28285,7 +28285,50 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"App.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"initial-data.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var initialData = {
+  tasks: {
+    'task-1': {
+      id: 'task-1',
+      content: 'Take out the garbage'
+    },
+    'task-2': {
+      id: 'task-2',
+      content: 'Watch my favorite show'
+    },
+    'task-3': {
+      id: 'task-3',
+      content: 'Charge my phone'
+    },
+    'task-4': {
+      id: 'task-4',
+      content: 'Cook dinner'
+    }
+  },
+  columns: {
+    'column-1': {
+      id: 'column-1',
+      title: 'To Do',
+      taskIds: ['task-1', 'task-2', 'task-3', 'task-4']
+    } // 'column-2': {
+    //   id: 'column-1',
+    //   title: 'In Progress',
+    //   taskIds: ['task-1', 'task-2', 'task-3']
+    // }
+
+  },
+  //Facilitate reordering of the columns.
+  columnOrder: ['column-1']
+};
+var _default = initialData;
+exports.default = _default;
+},{}],"components/Task.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -28297,25 +28340,112 @@ var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var Task = function Task(props) {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "task"
+  }, props.task.content);
+};
+
+var _default = Task;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"components/Column.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _Task = _interopRequireDefault(require("./Task"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Column = function Column(props) {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "column container"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "column-title title"
+  }, props.column.title), /*#__PURE__*/_react.default.createElement("div", {
+    className: "tasklist container"
+  }, props.tasks.map(function (task) {
+    return /*#__PURE__*/_react.default.createElement(_Task.default, {
+      key: task.id,
+      task: task
+    });
+  })));
+};
+
+var _default = Column;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","./Task":"components/Task.js"}],"components/App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _initialData = _interopRequireDefault(require("../initial-data.js"));
+
+var _Column = _interopRequireDefault(require("./Column"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 var App = function App() {
-  return /*#__PURE__*/_react.default.createElement("p", null, "Hello from App component! Changes!");
+  var _useState = (0, _react.useState)(_initialData.default),
+      _useState2 = _slicedToArray(_useState, 2),
+      getData = _useState2[0],
+      setData = _useState2[1];
+
+  var columnComponents = getData.columnOrder.map(function (columnId) {
+    var column = getData.columns[columnId];
+    var tasks = column.taskIds.map(function (taskId) {
+      return getData.tasks[taskId];
+    });
+    return /*#__PURE__*/_react.default.createElement(_Column.default, {
+      key: column.id,
+      column: column,
+      tasks: tasks
+    });
+  });
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, columnComponents);
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"main.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../initial-data.js":"initial-data.js","./Column":"components/Column.js"}],"main.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _App = _interopRequireDefault(require("./App"));
+var _App = _interopRequireDefault(require("./components/App"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(_App.default, null), document.getElementById('app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./App":"App.js"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./components/App":"components/App.js"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -28343,7 +28473,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50259" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53528" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

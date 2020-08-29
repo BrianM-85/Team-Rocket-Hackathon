@@ -9837,4 +9837,39 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   padding: 3rem 1.5rem 6rem;
 }
 
+.column {
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+}
+
+.column-title {
+  padding: 2px;
+}
+
+.tasklist {
+  padding: 5px;
+}
+
+.task {
+  margin-bottom: 5px;
+  padding: 5px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  float: right;
+}
+
 /*# sourceMappingURL=/bulma-theme.0b97608c.css.map */
