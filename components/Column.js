@@ -1,7 +1,7 @@
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Task from "./Task";
-
+import AddCard from './AddCard'
 const Column = (props) => {
   
   const getItemStyle = (isDraggingOver, droppableStyle) => ({
@@ -23,6 +23,8 @@ const Column = (props) => {
           >
             {props.column.title}
           </div>
+          <AddCard columnID={props.column.id} getData={props.getData}
+        setData={props.setData}/>
 
           <Droppable droppableId={props.column.id} type="task">
             {(provided, snapshot) => (
