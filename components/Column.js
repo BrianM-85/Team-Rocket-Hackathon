@@ -46,7 +46,12 @@ const Column = (props) => {
                 )}
               >
                 {props.tasks.map((task, index) => (
-                  <Task key={task.id} task={task} index={index} />
+                  <Task
+                    setSelectedCardFunction={props.setSelectedCardFunction}
+                    key={task.id}
+                    task={task}
+                    index={index}
+                  />
                 ))}
                 {provided.placeholder}
               </div>

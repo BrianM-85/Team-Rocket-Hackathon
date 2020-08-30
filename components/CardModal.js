@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 
 const CardModal = (props) => {
-  // id = task1 
-  const cardData = "localStorage.getItem(selectedCard)"
+  // id = task1
+  const cardData = "localStorage.getItem(selectedCard)";
   // = {title: "title"
-//            description: "description"}
+  //            description: "description"}
 
-  const title = "cardData.title"
-  const description = "cardData.description"
-
+  let title;
+  let description;
+  if (props.selectedCard) {
+    title = props.getData.tasks[props.selectedCard].content;
+    if (props.getData.tasks[props.selectedCard].description) {
+      description = props.getData.tasks[props.selectedCard].description;
+    }
+  }
   let isActive = false;
 
   if (props.selectedCard) {
@@ -20,10 +25,7 @@ const CardModal = (props) => {
     props.setSelectedCard(null);
   };
   return (
-    <div
-      id={props.id}
-      className={`modal ${isActive ? "is-active" : ""}`}
-    >
+    <div id={props.id} className={`modal ${isActive ? "is-active" : ""}`}>
       <div className="modal-background"></div>
       <div className="modal-card">
         <header className="modal-card-head">
@@ -34,7 +36,9 @@ const CardModal = (props) => {
             aria-label="close"
           ></button>
         </header>
-        <section className="modal-card-body"><p>{description}</p></section>
+        <section className="modal-card-body">
+          <p>{description}</p>
+        </section>
         <footer className="modal-card-foot">
           <button className="button is-success">Save changes</button>
           <button className="button">Cancel</button>
