@@ -41,7 +41,8 @@ const CardModal = (props) => {
         </section>
         <footer className="modal-card-foot">
           <button className="button is-success">Save changes</button>
-          <button className="button">Cancel</button>
+          <button className="button" 
+            onClick={closeFunction}>Cancel</button>
         </footer>
       </div>
     </div>
