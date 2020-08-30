@@ -1,7 +1,7 @@
 import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import Task from './Task';
-
+import AddCard from "./addCard/AddCard"
 const Column = (props) => {
 
   const getItemStyle = (isDraggingOver, droppableStyle) => ({
@@ -31,6 +31,7 @@ const Column = (props) => {
           </div>
         )}
       </Droppable>
+      <AddCard />
     </div>
   )
 }
