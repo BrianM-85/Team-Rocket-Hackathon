@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import CardModal from "./components/CardModal";
+import AddCard from "./components/addCard/AddCard"
 const App = () => {
   const [selectedCard, setSelectedCard] = useState(null)
   const setSelectedCardFunction = (taskNumber) => {
@@ -22,6 +23,7 @@ const App = () => {
       </div>
       
       <CardModal id={selectedCard} selectedCard={selectedCard} setSelectedCard={setSelectedCard}/>
+      <AddCard />
     </>
   );
 };

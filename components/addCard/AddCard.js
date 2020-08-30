@@ -1,15 +1,27 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 const AddCard = () => {
-  let cardFields = "title"
-  const expandCard =() => {
-  
-  }
+  let cardFields = (
+    <div className="card">
+      <div className="card-header">
+        <p className="is-primary has-text-dark" onClick={expandCard}>
+          {" "}
+          ＋ Add a new task
+        </p>
+      </div>
+    </div>
+  );
+  const expandCard = () => {
+    cardFields = <input type="textarea" />;
+  };
   return (
     <div className="card">
       <div className="card-header">
-      <p className="is-primary has-text-dark" onClick={expandCard}> ＋ Add a new task</p>
-      {cardFields}
+        <p className="is-primary has-text-dark" onClick={expandCard}>
+          {" "}
+          ＋ Add a new task
+        </p>
+        {cardFields}
       </div>
     </div>
   );
