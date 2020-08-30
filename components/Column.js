@@ -9,9 +9,17 @@ const Column = (props) => {
     ...droppableStyle
   });
 
+  let columnTitle = document.getElementById(props.column.title);
+  // columnTitle.addEventListener('contextmenu', e => {
+  //   e.preventDefault();
+  //   console.log("you did the thing")
+  // });
+
   return (
     <div className="column m-lg">
-      <div className="column-title title">
+      <div className="column-title title" 
+      title={props.column.title}
+      oncontextmenu="javascript:alert('success!');return false;">
         {props.column.title}
       </div>
 
