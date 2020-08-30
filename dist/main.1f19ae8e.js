@@ -40635,6 +40635,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var initialData = {
   tasks: {
+    'task-0': {
+      id: 'task-0',
+      content: 'Example task'
+    },
     'task-1': {
       id: 'task-1',
       content: 'Take out the garbage'
@@ -40839,7 +40843,9 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var App = function App() {
-  var _useState = (0, _react.useState)(_initialData.default),
+  var storedValues = JSON.parse(localStorage.getItem("LocalStorageValues"));
+
+  var _useState = (0, _react.useState)(storedValues || _initialData.default),
       _useState2 = _slicedToArray(_useState, 2),
       getData = _useState2[0],
       setData = _useState2[1];
@@ -40872,6 +40878,10 @@ var App = function App() {
       _useState8 = _slicedToArray(_useState7, 2),
       getDroppableSnapshot = _useState8[0],
       setDroppableSnapshot = _useState8[1];
+
+  (0, _react.useEffect)(function () {
+    localStorage.setItem('LocalStorageValues', JSON.stringify(getData));
+  }, [getData]);
 
   var onDragEnd = function onDragEnd(result) {
     var destination = result.destination,
@@ -40930,20 +40940,43 @@ var App = function App() {
     var tasks = column.taskIds.map(function (taskId) {
       return getData.tasks[taskId];
     });
+    debugger;
     return /*#__PURE__*/_react.default.createElement(_Column.default, {
       key: column.id,
       column: column,
       tasks: tasks
     });
   });
-  return /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.DragDropContext, {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.DragDropContext, {
     onDragEnd: onDragEnd
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "columns"
-  }, columnComponents));
+  }, columnComponents)), /*#__PURE__*/_react.default.createElement("label", null, "New Column:"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    id: "column_name",
+    name: "column_name"
+  }), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: function onClick() {
+      var columnName = document.getElementById("column_name").value;
+      var newColumnName = "column-" + (Object.keys(getData.columns).length + 1);
+      var newColumn = {
+        id: newColumnName,
+        title: columnName,
+        taskIds: ['task-0']
+      };
+      var newColumnOrder = getData.columnOrder;
+      newColumnOrder.push(newColumnName);
+      setData(_objectSpread(_objectSpread({}, getData), {}, {
+        columns: _objectSpread(_objectSpread({}, getData.columns), {}, _defineProperty({}, newColumnName, newColumn)),
+        columnOrder: newColumnOrder
+      }));
+    }
+  }, "Create"));
 };
 
-var _default = App;
+var _default = App; // setData(...getData,
+//   getData.columns.newColumn)
+
 exports.default = _default;
 },{"react":"node_modules/react/index.js","react-beautiful-dnd":"node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js","../initial-data.js":"initial-data.js","./Column":"components/Column.js"}],"main.js":[function(require,module,exports) {
 "use strict";
@@ -40985,7 +41018,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59928" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51057" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

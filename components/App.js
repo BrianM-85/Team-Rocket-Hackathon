@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import initialData from '../initial-data.js';
 import Column from './Column';
 
 const App = () => {
-  const [getData, setData] = useState(initialData);
+  var storedValues = JSON.parse(localStorage.getItem("LocalStorageValues"))
+  const [getData, setData] = useState(
+    storedValues || 
+    initialData);
   const [getResult, setResult] = useState({
     draggableId: 'task-1',
     type: 'TYPE',
@@ -22,6 +25,10 @@ const App = () => {
     isDraggingOver: true,
     draggingOverWith: 'task-1'
   })
+
+  useEffect(() => {
+    localStorage.setItem('LocalStorageValues', JSON.stringify(getData));
+  }, [getData]);
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -88,17 +95,47 @@ const App = () => {
   const columnComponents = getData.columnOrder.map(columnId => {
     const column = getData.columns[columnId];
     const tasks = column.taskIds.map((taskId) => getData.tasks[taskId]);
-
+    debugger
     return <Column key={column.id} column={column} tasks={tasks} />;
   })
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className="columns">
-        {columnComponents}
-      </div>
-    </DragDropContext>
+    <div>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className="columns">
+          {columnComponents}
+        </div>
+      </DragDropContext>
+      <label>New Column:</label>
+      <input type="text" id="column_name" name="column_name"/>
+      <button onClick={() => {
+        let columnName = document.getElementById("column_name").value
+        let newColumnName = "column-"+ (Object.keys(getData.columns).length + 1)
+        let newColumn =   {
+          id: newColumnName,
+          title: columnName,
+          taskIds: ['task-0']
+        };
+        let newColumnOrder = getData.columnOrder
+        newColumnOrder.push(newColumnName)
+      setData({
+        ...getData,
+        columns: {
+          ...getData.columns,
+          [newColumnName]:newColumn
+          },
+        columnOrder: newColumnOrder
+        })
+        }}>Create</button>  
+
+    </div>
   )
 };
 
 export default App;
+
+
+
+
+  // setData(...getData,
+  //   getData.columns.newColumn)
