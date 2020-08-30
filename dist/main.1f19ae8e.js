@@ -40889,7 +40889,7 @@ var App = function App() {
       getDroppableSnapshot = _useState8[0],
       setDroppableSnapshot = _useState8[1];
 
-  useEffect(function () {
+  (0, _react.useEffect)(function () {
     localStorage.setItem('LocalStorageValues', JSON.stringify(getData));
   }, [getData]);
 
