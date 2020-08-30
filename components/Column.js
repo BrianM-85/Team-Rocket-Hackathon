@@ -14,7 +14,8 @@ const Column = (props) => {
       <div className="column-title title">
         {props.column.title}
       </div>
-
+      <AddCard columnID={props.column.id} getData={props.getData}
+        setData={props.setData}/>
       <Droppable droppableId={props.column.id}>
         {(provided, snapshot) => (
           <div
@@ -31,7 +32,7 @@ const Column = (props) => {
           </div>
         )}
       </Droppable>
-      <AddCard />
+    
     </div>
   )
 }

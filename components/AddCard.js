@@ -1,16 +1,33 @@
 import React, { Fragment, useState } from "react";
 
-const AddCard = () => {
+const AddCard = (props) => {
   const saveTask = () => {
-    console.log("hello");
+    let taskID = "task-" + Object.keys(props.getData.tasks).length;
+    let taskContent = document.getElementById("taskTitle").value;
+    let taskDescription = document.getElementById("taskDescription").value;
+    let taskObject = {
+      id: taskID,
+      content: taskContent,
+      description: taskDescription,
+    };
+    let newColumnList = props.getData.columns[props.columnID].taskIds;
+    newColumnList.push(taskID);
+    debugger
+    props.setData({
+      ...props.getData,
+      tasks: {
+        ...props.getData.tasks,
+        [taskObject.id]: taskObject,
+      },
+    });
   };
   const collapseCard = () => {
     setCardFields(
       <p className="is-primary has-text-dark" onClick={expandCard}>
         Add a new task
       </p>
-    )
-  }
+    );
+  };
   const expandCard = () => {
     setCardFields(
       <form onSubmit={saveTask} id="newTaskForm">
@@ -18,17 +35,14 @@ const AddCard = () => {
           <h6>New Task Title</h6>
           <input id="taskTitle" name="taskTitle" type="text" />
           <h6>Content</h6>
-          <input id="taskContent" name="taskContent" type="textfield" />
+          <input id="taskDescription" name="taskDescription" type="textfield" />
         </div>
         <footer className="card-footer">
           <button type="submit" className="card-footer-item">
             Save
           </button>
 
-          <button
-            className="card-footer-item"
-            onClick={collapseCard}
-          >
+          <button className="card-footer-item" onClick={collapseCard}>
             Cancel
           </button>
         </footer>

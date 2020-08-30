@@ -40750,7 +40750,106 @@ var Task = function Task(props) {
 
 var _default = Task;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-beautiful-dnd":"node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js"}],"components/Column.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-beautiful-dnd":"node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js"}],"components/AddCard.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var AddCard = function AddCard(props) {
+  var saveTask = function saveTask() {
+    var taskID = "task-" + Object.keys(props.getData.tasks).length;
+    var taskContent = document.getElementById("taskTitle").value;
+    var taskDescription = document.getElementById("taskDescription").value;
+    var taskObject = {
+      id: taskID,
+      content: taskContent,
+      description: taskDescription
+    };
+    var newColumnList = props.getData.columns[props.columnID].taskIds;
+    newColumnList.push(taskID);
+    debugger;
+    props.setData(_objectSpread(_objectSpread({}, props.getData), {}, {
+      tasks: _objectSpread(_objectSpread({}, props.getData.tasks), {}, _defineProperty({}, taskObject.id, taskObject))
+    }));
+  };
+
+  var collapseCard = function collapseCard() {
+    setCardFields( /*#__PURE__*/_react.default.createElement("p", {
+      className: "is-primary has-text-dark",
+      onClick: expandCard
+    }, "Add a new task"));
+  };
+
+  var expandCard = function expandCard() {
+    setCardFields( /*#__PURE__*/_react.default.createElement("form", {
+      onSubmit: saveTask,
+      id: "newTaskForm"
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      className: "card-content"
+    }, /*#__PURE__*/_react.default.createElement("h6", null, "New Task Title"), /*#__PURE__*/_react.default.createElement("input", {
+      id: "taskTitle",
+      name: "taskTitle",
+      type: "text"
+    }), /*#__PURE__*/_react.default.createElement("h6", null, "Content"), /*#__PURE__*/_react.default.createElement("input", {
+      id: "taskDescription",
+      name: "taskDescription",
+      type: "textfield"
+    })), /*#__PURE__*/_react.default.createElement("footer", {
+      className: "card-footer"
+    }, /*#__PURE__*/_react.default.createElement("button", {
+      type: "submit",
+      className: "card-footer-item"
+    }, "Save"), /*#__PURE__*/_react.default.createElement("button", {
+      className: "card-footer-item",
+      onClick: collapseCard
+    }, "Cancel"))));
+  };
+
+  var _useState = (0, _react.useState)( /*#__PURE__*/_react.default.createElement("p", {
+    className: "is-primary has-text-dark",
+    onClick: expandCard
+  }, "Add a new task")),
+      _useState2 = _slicedToArray(_useState, 2),
+      cardFields = _useState2[0],
+      setCardFields = _useState2[1];
+
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "card task"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "card-header"
+  }), cardFields);
+};
+
+var _default = AddCard;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"components/Column.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40763,6 +40862,8 @@ var _react = _interopRequireDefault(require("react"));
 var _reactBeautifulDnd = require("react-beautiful-dnd");
 
 var _Task = _interopRequireDefault(require("./Task"));
+
+var _AddCard = _interopRequireDefault(require("./AddCard"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40785,7 +40886,11 @@ var Column = function Column(props) {
     className: "column m-lg"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "column-title title"
-  }, props.column.title), /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.Droppable, {
+  }, props.column.title), /*#__PURE__*/_react.default.createElement(_AddCard.default, {
+    columnID: props.column.id,
+    getData: props.getData,
+    setData: props.setData
+  }), /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.Droppable, {
     droppableId: props.column.id
   }, function (provided, snapshot) {
     return /*#__PURE__*/_react.default.createElement("div", _extends({
@@ -40806,7 +40911,7 @@ var Column = function Column(props) {
 
 var _default = Column;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-beautiful-dnd":"node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js","./Task":"components/Task.js"}],"components/CardModal.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-beautiful-dnd":"node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js","./Task":"components/Task.js","./AddCard":"components/AddCard.js"}],"components/CardModal.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40856,7 +40961,7 @@ var CardModal = function CardModal(props) {
     "aria-label": "close"
   })), /*#__PURE__*/_react.default.createElement("section", {
     className: "modal-card-body"
-  }), /*#__PURE__*/_react.default.createElement("footer", {
+  }, /*#__PURE__*/_react.default.createElement("p", null, description)), /*#__PURE__*/_react.default.createElement("footer", {
     className: "modal-card-foot"
   }, /*#__PURE__*/_react.default.createElement("button", {
     className: "button is-success"
@@ -40918,10 +41023,10 @@ var App = function App() {
       setData = _useState2[1];
 
   var _useState3 = (0, _react.useState)({
-    draggableId: 'task-1',
-    type: 'TYPE',
+    draggableId: "task-1",
+    type: "TYPE",
     source: {
-      droppableId: 'column-1',
+      droppableId: "column-1",
       index: 0
     },
     destination: null
@@ -40932,7 +41037,7 @@ var App = function App() {
 
   var _useState5 = (0, _react.useState)({
     isDragging: true,
-    draggingOver: 'column-1'
+    draggingOver: "column-1"
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       getDraggableSnapshot = _useState6[0],
@@ -40940,14 +41045,14 @@ var App = function App() {
 
   var _useState7 = (0, _react.useState)({
     isDraggingOver: true,
-    draggingOverWith: 'task-1'
+    draggingOverWith: "task-1"
   }),
       _useState8 = _slicedToArray(_useState7, 2),
       getDroppableSnapshot = _useState8[0],
       setDroppableSnapshot = _useState8[1];
 
   (0, _react.useEffect)(function () {
-    localStorage.setItem('LocalStorageValues', JSON.stringify(getData));
+    localStorage.setItem("LocalStorageValues", JSON.stringify(getData));
   }, [getData]);
 
   var onDragEnd = function onDragEnd(result) {
@@ -41024,7 +41129,9 @@ var App = function App() {
       setSelectedCardFunction: setSelectedCardFunction,
       key: column.id,
       column: column,
-      tasks: tasks
+      tasks: tasks,
+      getData: getData,
+      setData: setData
     });
   });
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.DragDropContext, {
@@ -41042,7 +41149,7 @@ var App = function App() {
       var newColumn = {
         id: newColumnName,
         title: columnName,
-        taskIds: ['task-0']
+        taskIds: ["task-0"]
       };
       var newColumnOrder = getData.columnOrder;
       newColumnOrder.push(newColumnName);
@@ -41051,7 +41158,10 @@ var App = function App() {
         columnOrder: newColumnOrder
       }));
     }
-  }, "Create"));
+  }, "Create"), /*#__PURE__*/_react.default.createElement(_CardModal.default, {
+    selectedCard: selectedCard,
+    setSelectedCard: setSelectedCard
+  }));
 };
 
 var _default = App;
@@ -41096,7 +41206,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51057" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59819" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

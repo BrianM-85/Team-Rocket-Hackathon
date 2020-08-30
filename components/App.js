@@ -109,6 +109,8 @@ const App = () => {
         key={column.id}
         column={column}
         tasks={tasks}
+        getData={getData}
+        setData={setData}
       />
     );
   });
