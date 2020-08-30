@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
-import initialData from '../initial-data.js';
-import Column from './Column';
+import React, { useState, Fragment } from "react";
+import { DragDropContext } from "react-beautiful-dnd";
+import initialData from "../initial-data.js";
+import Column from "./Column";
+import CardModal from "./CardModal"
 
 const App = () => {
   const [getData, setData] = useState(initialData);
   const [getResult, setResult] = useState({
-    draggableId: 'task-1',
-    type: 'TYPE',
+    draggableId: "task-1",
+    type: "TYPE",
     source: {
-      droppableId: 'column-1',
-      index: 0
+      droppableId: "column-1",
+      index: 0,
     },
-    destination: null
-  })
+    destination: null,
+  });
   const [getDraggableSnapshot, setDraggableSnapshot] = useState({
     isDragging: true,
-    draggingOver: 'column-1',
-  })
+    draggingOver: "column-1",
+  });
   const [getDroppableSnapshot, setDroppableSnapshot] = useState({
     isDraggingOver: true,
-    draggingOverWith: 'task-1'
-  })
+    draggingOverWith: "task-1",
+  });
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -48,16 +49,16 @@ const App = () => {
 
       const newColumn = {
         ...start,
-        taskIds: newTaskIds
-      }
+        taskIds: newTaskIds,
+      };
 
       setData({
-        ...getData, 
+        ...getData,
         columns: {
           ...getData.columns,
-          [newColumn.id]: newColumn
-        }
-      })
+          [newColumn.id]: newColumn,
+        },
+      });
     } else {
       //Moving from one list to another.
       const startTaskIds = Array.from(start.taskIds);
@@ -65,14 +66,14 @@ const App = () => {
       const newStart = {
         ...start,
         taskIds: startTaskIds,
-      }
+      };
 
       const finishTaskIds = Array.from(finish.taskIds);
       finishTaskIds.splice(destination.index, 0, draggableId);
       const newFinish = {
         ...finish,
         taskIds: finishTaskIds,
-      }
+      };
 
       setData({
         ...getData,
@@ -80,25 +81,37 @@ const App = () => {
           ...getData.columns,
           [newStart.id]: newStart,
           [newFinish.id]: newFinish,
-        }
-      })
+        },
+      });
     }
-  }
+  };
 
-  const columnComponents = getData.columnOrder.map(columnId => {
+  const columnComponents = getData.columnOrder.map((columnId) => {
     const column = getData.columns[columnId];
     const tasks = column.taskIds.map((taskId) => getData.tasks[taskId]);
 
     return <Column key={column.id} column={column} tasks={tasks} />;
-  })
+  });
+
+  const [selectedCard, setSelectedCard] = useState(null);
+  const setSelectedCardFunction = (taskNumber) => {
+    // search for CardModal with an id===taskNumber
+    // set className of matching CardModal === is active
+    if (selectedCard == null) {
+      setSelectedCard(taskNumber);
+    } else {
+      setSelectedCard(null);
+    }
+  };
 
   return (
+    <>
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="columns">
-        {columnComponents}
-      </div>
+      <div className="columns">{columnComponents}</div>
     </DragDropContext>
-  )
+    <CardModal id={selectedCard} selectedCard={selectedCard} setSelectedCard={setSelectedCard}/>
+    </>
+  );
 };
 
 export default App;
