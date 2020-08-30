@@ -40940,7 +40940,6 @@ var App = function App() {
     var tasks = column.taskIds.map(function (taskId) {
       return getData.tasks[taskId];
     });
-    debugger;
     return /*#__PURE__*/_react.default.createElement(_Column.default, {
       key: column.id,
       column: column,
@@ -40974,9 +40973,7 @@ var App = function App() {
   }, "Create"));
 };
 
-var _default = App; // setData(...getData,
-//   getData.columns.newColumn)
-
+var _default = App;
 exports.default = _default;
 },{"react":"node_modules/react/index.js","react-beautiful-dnd":"node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js","../initial-data.js":"initial-data.js","./Column":"components/Column.js"}],"main.js":[function(require,module,exports) {
 "use strict";

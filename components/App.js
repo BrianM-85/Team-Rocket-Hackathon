@@ -5,9 +5,7 @@ import Column from './Column';
 
 const App = () => {
   var storedValues = JSON.parse(localStorage.getItem("LocalStorageValues"))
-  const [getData, setData] = useState(
-    storedValues || 
-    initialData);
+  const [getData, setData] = useState(storedValues || initialData);
   const [getResult, setResult] = useState({
     draggableId: 'task-1',
     type: 'TYPE',
@@ -95,7 +93,6 @@ const App = () => {
   const columnComponents = getData.columnOrder.map(columnId => {
     const column = getData.columns[columnId];
     const tasks = column.taskIds.map((taskId) => getData.tasks[taskId]);
-    debugger
     return <Column key={column.id} column={column} tasks={tasks} />;
   })
 
@@ -133,9 +130,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
-
-  // setData(...getData,
-  //   getData.columns.newColumn)
