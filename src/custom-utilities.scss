@@ -37,22 +37,18 @@ body {
   min-height: 500px;
 }
 
-// @keyframes rotation {
-//   from {
-//     transform: rotate(0deg);
-//   }
-//   to {
-//     transform: rotate(359deg);
-//   }
-// }
-
 .task {
-  // transform: rotate(3deg);
   margin-bottom: 5px;
   padding: 10px;
   border: 1px solid #84DCC6;
   border-radius: 2px;
+
+  .is-dragging {
+    transform: rotate(3deg);
+  }
 }
+
+
 
 .center {
   display: flex;
