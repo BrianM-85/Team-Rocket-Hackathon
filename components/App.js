@@ -110,6 +110,8 @@ const App = () => {
         column={column}
         tasks={tasks}
         index={index}
+        getData={getData}
+        setData={setData}
       />
     )
   })
