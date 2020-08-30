@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import initialData from '../initial-data.js';
 import Column from './Column';
 
@@ -29,7 +29,7 @@ const App = () => {
   }, [getData]);
 
   const onDragEnd = (result) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
 
     if (!destination) {
       return;
@@ -40,6 +40,17 @@ const App = () => {
       destination.index === source.index
     ) {
       return;
+    }
+
+    if (type === 'column') {
+      const newColumnOrder = Array.from(getData.columnOrder);
+      newColumnOrder.splice(source.index, 1);
+      newColumnOrder.splice(destination.index, 0, draggableId);
+
+      setData({
+        ...getData,
+        columnOrder: newColumnOrder
+      })
     }
 
     const start = getData.columns[source.droppableId];
@@ -90,18 +101,42 @@ const App = () => {
     }
   }
 
-  const columnComponents = getData.columnOrder.map(columnId => {
+  const columnComponents = getData.columnOrder.map((columnId, index) => {
     const column = getData.columns[columnId];
     const tasks = column.taskIds.map((taskId) => getData.tasks[taskId]);
-    return <Column key={column.id} column={column} tasks={tasks} />;
+    return (
+      <Column
+        key={column.id}
+        column={column}
+        tasks={tasks}
+        index={index}
+      />
+    )
   })
 
   return (
     <div>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="columns">
-          {columnComponents}
-        </div>
+        <Droppable 
+        droppableId="all-columns"
+        direction="horizontal"
+        type="column"
+        >
+          {(provided) => (
+            <div className="hero is-fullheight">
+              <div className="container is-fluid">
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="columns"
+                >
+                  {columnComponents}
+                  {provided.placeholder}
+                </div>
+              </div>
+            </div>
+          )}
+        </Droppable>
       </DragDropContext>
       <label>New Column:</label>
       <input type="text" id="column_name" name="column_name"/>
@@ -123,8 +158,7 @@ const App = () => {
           },
         columnOrder: newColumnOrder
         })
-        }}>Create</button>  
-
+        }}>Create</button>
     </div>
   )
 };
