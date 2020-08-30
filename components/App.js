@@ -1,31 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import initialData from '../initial-data.js';
-import Column from './Column';
+import React, { useState, useEffect } from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import initialData from "../initial-data.js";
+import Column from "./Column";
+import CardModal from "./CardModal";
 
 const App = () => {
-  var storedValues = JSON.parse(localStorage.getItem("LocalStorageValues"))
+  var storedValues = JSON.parse(localStorage.getItem("LocalStorageValues"));
   const [getData, setData] = useState(storedValues || initialData);
   const [getResult, setResult] = useState({
-    draggableId: 'task-1',
-    type: 'TYPE',
+    draggableId: "task-1",
+    type: "TYPE",
     source: {
-      droppableId: 'column-1',
-      index: 0
+      droppableId: "column-1",
+      index: 0,
     },
-    destination: null
-  })
+    destination: null,
+  });
   const [getDraggableSnapshot, setDraggableSnapshot] = useState({
     isDragging: true,
-    draggingOver: 'column-1',
-  })
+    draggingOver: "column-1",
+  });
   const [getDroppableSnapshot, setDroppableSnapshot] = useState({
     isDraggingOver: true,
-    draggingOverWith: 'task-1'
-  })
+    draggingOverWith: "task-1",
+  });
 
   useEffect(() => {
-    localStorage.setItem('LocalStorageValues', JSON.stringify(getData));
+    localStorage.setItem("LocalStorageValues", JSON.stringify(getData));
   }, [getData]);
 
   const onDragEnd = (result) => {
@@ -42,15 +43,15 @@ const App = () => {
       return;
     }
 
-    if (type === 'column') {
+    if (type === "column") {
       const newColumnOrder = Array.from(getData.columnOrder);
       newColumnOrder.splice(source.index, 1);
       newColumnOrder.splice(destination.index, 0, draggableId);
 
       setData({
         ...getData,
-        columnOrder: newColumnOrder
-      })
+        columnOrder: newColumnOrder,
+      });
     }
 
     const start = getData.columns[source.droppableId];
@@ -64,16 +65,16 @@ const App = () => {
 
       const newColumn = {
         ...start,
-        taskIds: newTaskIds
-      }
+        taskIds: newTaskIds,
+      };
 
       setData({
-        ...getData, 
+        ...getData,
         columns: {
           ...getData.columns,
-          [newColumn.id]: newColumn
-        }
-      })
+          [newColumn.id]: newColumn,
+        },
+      });
     } else {
       //Moving from one list to another.
       const startTaskIds = Array.from(start.taskIds);
@@ -81,14 +82,14 @@ const App = () => {
       const newStart = {
         ...start,
         taskIds: startTaskIds,
-      }
+      };
 
       const finishTaskIds = Array.from(finish.taskIds);
       finishTaskIds.splice(destination.index, 0, draggableId);
       const newFinish = {
         ...finish,
         taskIds: finishTaskIds,
-      }
+      };
 
       setData({
         ...getData,
@@ -96,10 +97,19 @@ const App = () => {
           ...getData.columns,
           [newStart.id]: newStart,
           [newFinish.id]: newFinish,
-        }
-      })
+        },
+      });
     }
-  }
+  };
+
+  const [selectedCard, setSelectedCard] = useState(null);
+  const setSelectedCardFunction = (taskNumber) => {
+    if (selectedCard === null) {
+      setSelectedCard(taskNumber);
+    } else {
+      setSelectedCard(null);
+    }
+  };
 
   const columnComponents = getData.columnOrder.map((columnId, index) => {
     const column = getData.columns[columnId];
@@ -112,17 +122,18 @@ const App = () => {
         index={index}
         getData={getData}
         setData={setData}
+        setSelectedCardFunction={setSelectedCardFunction}
       />
-    )
-  })
+    );
+  });
 
   return (
     <div>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable 
-        droppableId="all-columns"
-        direction="horizontal"
-        type="column"
+        <Droppable
+          droppableId="all-columns"
+          direction="horizontal"
+          type="column"
         >
           {(provided) => (
             <div className="hero is-fullheight">
@@ -141,28 +152,39 @@ const App = () => {
         </Droppable>
       </DragDropContext>
       <label>New Column:</label>
-      <input type="text" id="column_name" name="column_name"/>
-      <button onClick={() => {
-        let columnName = document.getElementById("column_name").value
-        let newColumnName = "column-"+ (Object.keys(getData.columns).length + 1)
-        let newColumn =   {
-          id: newColumnName,
-          title: columnName,
-          taskIds: ['task-0']
-        };
-        let newColumnOrder = getData.columnOrder
-        newColumnOrder.push(newColumnName)
-      setData({
-        ...getData,
-        columns: {
-          ...getData.columns,
-          [newColumnName]:newColumn
-          },
-        columnOrder: newColumnOrder
-        })
-        }}>Create</button>
+      <input type="text" id="column_name" name="column_name" />
+      <button
+        onClick={() => {
+          let columnName = document.getElementById("column_name").value;
+          let newColumnName =
+            "column-" + (Object.keys(getData.columns).length + 1);
+          let newColumn = {
+            id: newColumnName,
+            title: columnName,
+            taskIds: ["task-0"],
+          };
+          let newColumnOrder = getData.columnOrder;
+          newColumnOrder.push(newColumnName);
+          setData({
+            ...getData,
+            columns: {
+              ...getData.columns,
+              [newColumnName]: newColumn,
+            },
+            columnOrder: newColumnOrder,
+          });
+        }}
+      >
+        Create
+      </button>
+      <CardModal
+        selectedCard={selectedCard}
+        setSelectedCard={setSelectedCard}
+        getData={getData}
+        setData={setData}
+      />
     </div>
-  )
+  );
 };
 
 export default App;
