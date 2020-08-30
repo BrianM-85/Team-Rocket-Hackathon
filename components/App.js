@@ -128,7 +128,7 @@ const App = () => {
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className="columns"
+                  className="columns scrolling-wrapper"
                 >
                   {columnComponents}
                   {provided.placeholder}

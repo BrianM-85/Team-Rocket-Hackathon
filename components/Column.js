@@ -15,14 +15,14 @@ const Column = (props) => {
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          className="column m-lg is-one-fifth has-background-white"
+          className="column m-sm is-one-fifth has-background-white"
         >
-          <div
+          <h6
             {...provided.dragHandleProps}
-            className="column-title title"
+            className="title is-6"
           >
             {props.column.title}
-          </div>
+          </h6>
 
           <Droppable droppableId={props.column.id} type="task">
             {(provided, snapshot) => (

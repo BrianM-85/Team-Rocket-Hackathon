@@ -2,11 +2,10 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
 const Task = (props) => {
-
-  let draggingStatus = props.isDragging ? 'task is-dragging' : 'task';
   
   const getItemStyle = (isDragging, draggableStyle) => ({
     background: isDragging ? "#A5FFD6" : "#fff",
+    webkitTransform: isDragging ? "rotate(3deg)" : "",
     ...draggableStyle
   });
 
@@ -17,7 +16,7 @@ const Task = (props) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className={draggingStatus}
+          className="task"
           style={getItemStyle(
             snapshot.isDragging,
             provided.draggableProps.style

@@ -7,13 +7,27 @@ body {
   background-size: 100%;
 }
 
+.scrolling-wrapper {
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+
+  .column{
+    flex: 0 0 auto;
+  }
+}
+
+.container {
+  padding-top: 2%;
+}
+
 .column {
   border: 1px solid lightgrey;
   border-radius: 2px;
-}
-
-.column-title {
   padding: 2px;
+  margin-left: 1px;
+  margin-right: 0px;
 }
 
 .tasklist {
@@ -23,7 +37,17 @@ body {
   min-height: 500px;
 }
 
+// @keyframes rotation {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(359deg);
+//   }
+// }
+
 .task {
+  // transform: rotate(3deg);
   margin-bottom: 5px;
   padding: 10px;
   border: 1px solid #84DCC6;

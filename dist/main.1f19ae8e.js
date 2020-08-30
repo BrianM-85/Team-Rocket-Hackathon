@@ -40724,11 +40724,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var Task = function Task(props) {
-  var draggingStatus = props.isDragging ? 'task is-dragging' : 'task';
-
   var getItemStyle = function getItemStyle(isDragging, draggableStyle) {
     return _objectSpread({
-      background: isDragging ? "#A5FFD6" : "#fff"
+      background: isDragging ? "#A5FFD6" : "#fff",
+      webkitTransform: isDragging ? "rotate(3deg)" : ""
     }, draggableStyle);
   };
 
@@ -40739,7 +40738,7 @@ var Task = function Task(props) {
     return /*#__PURE__*/_react.default.createElement("div", _extends({
       ref: provided.innerRef
     }, provided.draggableProps, provided.dragHandleProps, {
-      className: draggingStatus,
+      className: "task",
       style: getItemStyle(snapshot.isDragging, provided.draggableProps.style)
     }), props.task.content);
   });
@@ -40785,9 +40784,9 @@ var Column = function Column(props) {
     return /*#__PURE__*/_react.default.createElement("div", _extends({
       ref: provided.innerRef
     }, provided.draggableProps, {
-      className: "column m-lg is-one-fifth has-background-white"
-    }), /*#__PURE__*/_react.default.createElement("div", _extends({}, provided.dragHandleProps, {
-      className: "column-title title"
+      className: "column m-sm is-one-fifth has-background-white"
+    }), /*#__PURE__*/_react.default.createElement("h6", _extends({}, provided.dragHandleProps, {
+      className: "title is-6"
     }), props.column.title), /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.Droppable, {
       droppableId: props.column.id,
       type: "task"
@@ -40981,7 +40980,7 @@ var App = function App() {
     }, /*#__PURE__*/_react.default.createElement("div", _extends({
       ref: provided.innerRef
     }, provided.droppableProps, {
-      className: "columns"
+      className: "columns scrolling-wrapper"
     }), columnComponents, provided.placeholder)));
   })), /*#__PURE__*/_react.default.createElement("label", null, "New Column:"), /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
@@ -41048,7 +41047,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52441" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58502" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -5,12 +5,23 @@ body {
   background-image: url(https://i.pinimg.com/originals/a6/b1/08/a6b1086987b755d39636d790f19603f7.jpg);
   background-size: 100%; }
 
+.scrolling-wrapper {
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto; }
+  .scrolling-wrapper .column {
+    flex: 0 0 auto; }
+
+.container {
+  padding-top: 2%; }
+
 .column {
   border: 1px solid lightgrey;
-  border-radius: 2px; }
-
-.column-title {
-  padding: 2px; }
+  border-radius: 2px;
+  padding: 2px;
+  margin-left: 1px;
+  margin-right: 0px; }
 
 .tasklist {
   padding: 10px 10px 10px;
