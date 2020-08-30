@@ -1,9 +1,8 @@
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Task from "./Task";
-import AddCard from './AddCard'
+import AddCard from "./AddCard";
 const Column = (props) => {
-  
   const getItemStyle = (isDraggingOver, droppableStyle) => ({
     background: isDraggingOver ? "#84DCC6" : "#fff",
     ...droppableStyle,
@@ -17,14 +16,15 @@ const Column = (props) => {
           {...provided.draggableProps}
           className="column m-sm is-one-fifth has-background-white"
         >
-          <h6
-            {...provided.dragHandleProps}
-            className="title is-6"
-          >
+          <h6 {...provided.dragHandleProps} className="title is-6">
+            {provided.placeholder}
             {props.column.title}
           </h6>
-          <AddCard columnID={props.column.id} getData={props.getData}
-        setData={props.setData}/>
+          <AddCard
+            columnID={props.column.id}
+            getData={props.getData}
+            setData={props.setData}
+          />
 
           <Droppable droppableId={props.column.id} type="task">
             {(provided, snapshot) => (
@@ -38,7 +38,12 @@ const Column = (props) => {
                 )}
               >
                 {props.tasks.map((task, index) => (
-                  <Task key={task.id} task={task} index={index} />
+                  <Task
+                    setSelectedCardFunction={props.setSelectedCardFunction}
+                    key={task.id}
+                    task={task}
+                    index={index}
+                  />
                 ))}
                 {provided.placeholder}
               </div>

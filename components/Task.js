@@ -11,7 +11,7 @@ const Task = (props) => {
   return (
     <Draggable draggableId={props.task.id} index={props.index}>
       {(provided, snapshot) => (
-        <div
+        <div onClick={() => props.setSelectedCardFunction(props.task.id)}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
