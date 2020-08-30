@@ -1,7 +1,7 @@
-import React, { useState, Fragment } from "react";
-import { DragDropContext } from "react-beautiful-dnd";
-import initialData from "../initial-data.js";
-import Column from "./Column";
+import React, { useState, Fragment } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
+import initialData from '../initial-data.js';
+import Column from './Column';
 import CardModal from "./CardModal"
 
 const App = () => {
@@ -86,32 +86,30 @@ const App = () => {
     }
   };
 
-  const columnComponents = getData.columnOrder.map((columnId) => {
+  const [selectedCard, setSelectedCard] = useState(null)
+  const setSelectedCardFunction = (taskNumber) => {
+    if (selectedCard === null){
+    setSelectedCard(taskNumber)}
+    else{
+      setSelectedCard(null)
+    }
+  };
+
+  const columnComponents = getData.columnOrder.map(columnId => {
     const column = getData.columns[columnId];
     const tasks = column.taskIds.map((taskId) => getData.tasks[taskId]);
 
-    return <Column key={column.id} column={column} tasks={tasks} />;
-  });
-
-  const [selectedCard, setSelectedCard] = useState(null);
-  const setSelectedCardFunction = (taskNumber) => {
-    // search for CardModal with an id===taskNumber
-    // set className of matching CardModal === is active
-    if (selectedCard == null) {
-      setSelectedCard(taskNumber);
-    } else {
-      setSelectedCard(null);
-    }
-  };
+    return <Column setSelectedCardFunction={setSelectedCardFunction} key={column.id} column={column} tasks={tasks} />;
+  })
 
   return (
     <>
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="columns">{columnComponents}</div>
     </DragDropContext>
-    <CardModal id={selectedCard} selectedCard={selectedCard} setSelectedCard={setSelectedCard}/>
+    <CardModal selectedCard={selectedCard} setSelectedCard={setSelectedCard}/>
     </>
-  );
+  )
 };
 
 export default App;

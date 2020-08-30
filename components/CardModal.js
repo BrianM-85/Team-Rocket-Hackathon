@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const CardModal = (props) => {
   // id = task1 
-  const cardData = "localStorage.getItem(id)"
+  const cardData = "localStorage.getItem(selectedCard)"
   // = {title: "title"
 //            description: "description"}
 
@@ -11,7 +11,7 @@ const CardModal = (props) => {
 
   let isActive = false;
 
-  if (props.selectedCard === props.id && props.selectedCard) {
+  if (props.selectedCard) {
     isActive = true;
   } else {
     isActive = false;
@@ -23,8 +23,6 @@ const CardModal = (props) => {
     <div
       id={props.id}
       className={`modal ${isActive ? "is-active" : ""}`}
-      tabIndex="0"
-      onBlur={closeFunction}
     >
       <div className="modal-background"></div>
       <div className="modal-card">
@@ -36,7 +34,7 @@ const CardModal = (props) => {
             aria-label="close"
           ></button>
         </header>
-        <section className="modal-card-body"></section>
+        <section className="modal-card-body"><p>{description}</p></section>
         <footer className="modal-card-foot">
           <button className="button is-success">Save changes</button>
           <button className="button">Cancel</button>
