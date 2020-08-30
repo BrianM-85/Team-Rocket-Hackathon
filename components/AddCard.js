@@ -12,7 +12,6 @@ const AddCard = (props) => {
     };
     let newColumnList = props.getData.columns[props.columnID].taskIds;
     newColumnList.push(taskID);
-    debugger
     props.setData({
       ...props.getData,
       tasks: {
