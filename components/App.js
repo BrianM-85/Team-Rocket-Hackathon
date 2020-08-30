@@ -4,7 +4,8 @@ import initialData from '../initial-data.js';
 import Column from './Column';
 
 const App = () => {
-  const [getData, setData] = useState(initialData);
+  var storedValues = JSON.parse(localStorage.getItem("LocalStorageValues"))
+  const [getData, setData] = useState(storedValues || initialData);
   const [getResult, setResult] = useState({
     draggableId: 'task-1',
     type: 'TYPE',
@@ -22,6 +23,10 @@ const App = () => {
     isDraggingOver: true,
     draggingOverWith: 'task-1'
   })
+
+  useEffect(() => {
+    localStorage.setItem('LocalStorageValues', JSON.stringify(getData));
+  }, [getData]);
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId, type } = result;
@@ -99,7 +104,6 @@ const App = () => {
   const columnComponents = getData.columnOrder.map((columnId, index) => {
     const column = getData.columns[columnId];
     const tasks = column.taskIds.map((taskId) => getData.tasks[taskId]);
-
     return (
       <Column
         key={column.id}
@@ -111,28 +115,51 @@ const App = () => {
   })
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable 
+    <div>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable 
         droppableId="all-columns"
         direction="horizontal"
         type="column"
-      >
-        {(provided) => (
-          <div className="hero is-fullheight">
-            <div className="container is-fluid">
-              <div
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                className="columns"
-              >
-                {columnComponents}
-                {provided.placeholder}
+        >
+          {(provided) => (
+            <div className="hero is-fullheight">
+              <div className="container is-fluid">
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="columns"
+                >
+                  {columnComponents}
+                  {provided.placeholder}
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+          )}
+        </Droppable>
+      </DragDropContext>
+      <label>New Column:</label>
+      <input type="text" id="column_name" name="column_name"/>
+      <button onClick={() => {
+        let columnName = document.getElementById("column_name").value
+        let newColumnName = "column-"+ (Object.keys(getData.columns).length + 1)
+        let newColumn =   {
+          id: newColumnName,
+          title: columnName,
+          taskIds: ['task-0']
+        };
+        let newColumnOrder = getData.columnOrder
+        newColumnOrder.push(newColumnName)
+      setData({
+        ...getData,
+        columns: {
+          ...getData.columns,
+          [newColumnName]:newColumn
+          },
+        columnOrder: newColumnOrder
+        })
+        }}>Create</button>
+    </div>
   )
 };
 
