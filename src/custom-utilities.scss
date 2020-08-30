@@ -1,0 +1,35 @@
+.column {
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+}
+
+.column-title {
+  padding: 2px;
+}
+
+.tasklist {
+  padding: 10px 10px 10px;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+  min-height: 500px;
+}
+
+.task {
+  margin-bottom: 5px;
+  padding: 10px;
+  border: 1px solid #84DCC6;
+  border-radius: 2px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  float: right;
+}
