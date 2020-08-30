@@ -40774,26 +40774,34 @@ var Column = function Column(props) {
     }, droppableStyle);
   };
 
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "column m-lg"
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "column-title title"
-  }, props.column.title), /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.Droppable, {
-    droppableId: props.column.id
-  }, function (provided, snapshot) {
+  return /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.Draggable, {
+    draggableId: props.column.id,
+    index: props.index
+  }, function (provided) {
     return /*#__PURE__*/_react.default.createElement("div", _extends({
-      className: "tasklist",
       ref: provided.innerRef
-    }, provided.droppableProps, {
-      style: getItemStyle(snapshot.isDraggingOver, provided.droppableProps.style)
-    }), props.tasks.map(function (task, index) {
-      return /*#__PURE__*/_react.default.createElement(_Task.default, {
-        key: task.id,
-        task: task,
-        index: index
-      });
-    }), provided.placeholder);
-  }));
+    }, provided.draggableProps, {
+      className: "column m-lg is-one-fifth has-background-white"
+    }), /*#__PURE__*/_react.default.createElement("div", _extends({}, provided.dragHandleProps, {
+      className: "column-title title"
+    }), props.column.title), /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.Droppable, {
+      droppableId: props.column.id,
+      type: "task"
+    }, function (provided, snapshot) {
+      return /*#__PURE__*/_react.default.createElement("div", _extends({
+        className: "tasklist",
+        ref: provided.innerRef
+      }, provided.droppableProps, {
+        style: getItemStyle(snapshot.isDraggingOver, provided.droppableProps.style)
+      }), props.tasks.map(function (task, index) {
+        return /*#__PURE__*/_react.default.createElement(_Task.default, {
+          key: task.id,
+          task: task,
+          index: index
+        });
+      }), provided.placeholder);
+    }));
+  });
 };
 
 var _default = Column;
@@ -40819,6 +40827,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -40876,7 +40886,8 @@ var App = function App() {
   var onDragEnd = function onDragEnd(result) {
     var destination = result.destination,
         source = result.source,
-        draggableId = result.draggableId;
+        draggableId = result.draggableId,
+        type = result.type;
 
     if (!destination) {
       return;
@@ -40884,6 +40895,15 @@ var App = function App() {
 
     if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
+    }
+
+    if (type === 'column') {
+      var newColumnOrder = Array.from(getData.columnOrder);
+      newColumnOrder.splice(source.index, 1);
+      newColumnOrder.splice(destination.index, 0, draggableId);
+      setData(_objectSpread(_objectSpread({}, getData), {}, {
+        columnOrder: newColumnOrder
+      }));
     }
 
     var start = getData.columns[source.droppableId];
@@ -40925,7 +40945,7 @@ var App = function App() {
     }
   };
 
-  var columnComponents = getData.columnOrder.map(function (columnId) {
+  var columnComponents = getData.columnOrder.map(function (columnId, index) {
     var column = getData.columns[columnId];
     var tasks = column.taskIds.map(function (taskId) {
       return getData.tasks[taskId];
@@ -40933,14 +40953,27 @@ var App = function App() {
     return /*#__PURE__*/_react.default.createElement(_Column.default, {
       key: column.id,
       column: column,
-      tasks: tasks
+      tasks: tasks,
+      index: index
     });
   });
   return /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.DragDropContext, {
     onDragEnd: onDragEnd
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "columns"
-  }, columnComponents));
+  }, /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.Droppable, {
+    droppableId: "all-columns",
+    direction: "horizontal",
+    type: "column"
+  }, function (provided) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "hero is-fullheight"
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      className: "container is-fluid"
+    }, /*#__PURE__*/_react.default.createElement("div", _extends({
+      ref: provided.innerRef
+    }, provided.droppableProps, {
+      className: "columns"
+    }), columnComponents, provided.placeholder)));
+  }));
 };
 
 var _default = App;
@@ -40985,7 +41018,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59928" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52441" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

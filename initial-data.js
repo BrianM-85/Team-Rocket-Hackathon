@@ -26,7 +26,7 @@ const initialData = {
       id: 'column-3',
       title: 'Done',
       taskIds: ['task-9', 'task-10']
-    },
+    }
   },
   columnOrder: ['column-1', 'column-2', 'column-3']
 }
