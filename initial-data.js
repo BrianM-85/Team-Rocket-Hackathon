@@ -28,7 +28,6 @@ const initialData = {
       taskIds: ['task-9', 'task-10']
     },
   },
-  //Facilitate reordering of the columns.
   columnOrder: ['column-1', 'column-2', 'column-3']
 }
 

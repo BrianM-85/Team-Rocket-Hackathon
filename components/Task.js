@@ -6,9 +6,7 @@ const Task = (props) => {
   let draggingStatus = props.isDragging ? 'task is-dragging' : 'task';
   
   const getItemStyle = (isDragging, draggableStyle) => ({
-    // change background colour if dragging
     background: isDragging ? "#A5FFD6" : "#fff",
-    // styles we need to apply on draggables
     ...draggableStyle
   });
 

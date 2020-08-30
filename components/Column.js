@@ -5,9 +5,7 @@ import Task from './Task';
 const Column = (props) => {
 
   const getItemStyle = (isDraggingOver, droppableStyle) => ({
-    // change background colour if dragging
     background: isDraggingOver ? "#84DCC6" : "#fff",
-    // styles we need to apply on draggables
     ...droppableStyle
   });
 

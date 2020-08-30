@@ -40693,7 +40693,6 @@ var initialData = {
       taskIds: ['task-9', 'task-10']
     }
   },
-  //Facilitate reordering of the columns.
   columnOrder: ['column-1', 'column-2', 'column-3']
 };
 var _default = initialData;
@@ -40725,7 +40724,6 @@ var Task = function Task(props) {
 
   var getItemStyle = function getItemStyle(isDragging, draggableStyle) {
     return _objectSpread({
-      // change background colour if dragging
       background: isDragging ? "#A5FFD6" : "#fff"
     }, draggableStyle);
   };
@@ -40772,7 +40770,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var Column = function Column(props) {
   var getItemStyle = function getItemStyle(isDraggingOver, droppableStyle) {
     return _objectSpread({
-      // change background colour if dragging
       background: isDraggingOver ? "#84DCC6" : "#fff"
     }, droppableStyle);
   };
