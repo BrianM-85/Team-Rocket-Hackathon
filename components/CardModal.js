@@ -23,8 +23,6 @@ const CardModal = (props) => {
     <div
       id={props.id}
       className={`modal ${isActive ? "is-active" : ""}`}
-      tabIndex="0"
-      onBlur={closeFunction}
     >
       <div className="modal-background"></div>
       <div className="modal-card">

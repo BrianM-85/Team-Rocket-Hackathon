@@ -40733,6 +40733,9 @@ var Task = function Task(props) {
     index: props.index
   }, function (provided, snapshot) {
     return /*#__PURE__*/_react.default.createElement("div", _extends({
+      onClick: function onClick() {
+        return props.setSelectedCardFunction(props.task.id);
+      },
       ref: provided.innerRef
     }, provided.draggableProps, provided.dragHandleProps, {
       className: draggingStatus,
@@ -40751,72 +40754,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var CardModal = function CardModal(props) {
-  // id = task1 
-  var cardData = "localStorage.getItem(id)"; // = {title: "title"
-  //            description: "description"}
-
-  var title = "cardData.title";
-  var description = "cardData.description";
-  var isActive = false;
-
-  if (props.selectedCard === props.id && props.selectedCard) {
-    isActive = true;
-  } else {
-    isActive = false;
-  }
-
-  var closeFunction = function closeFunction() {
-    props.setSelectedCard(null);
-  };
-
-  return /*#__PURE__*/_react.default.createElement("div", {
-    id: props.id,
-    className: "modal ".concat(isActive ? "is-active" : ""),
-    tabIndex: "0",
-    onBlur: closeFunction
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "modal-background"
-  }), /*#__PURE__*/_react.default.createElement("div", {
-    className: "modal-card"
-  }, /*#__PURE__*/_react.default.createElement("header", {
-    className: "modal-card-head"
-  }, /*#__PURE__*/_react.default.createElement("p", {
-    className: "modal-card-title"
-  }, title), /*#__PURE__*/_react.default.createElement("button", {
-    className: "delete",
-    onClick: closeFunction,
-    "aria-label": "close"
-  })), /*#__PURE__*/_react.default.createElement("section", {
-    className: "modal-card-body"
-  }), /*#__PURE__*/_react.default.createElement("footer", {
-    className: "modal-card-foot"
-  }, /*#__PURE__*/_react.default.createElement("button", {
-    className: "button is-success"
-  }, "Save changes"), /*#__PURE__*/_react.default.createElement("button", {
-    className: "button"
-  }, "Cancel"))));
-};
-
-var _default = CardModal;
-exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"App.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _CardModal = _interopRequireDefault(require("./components/CardModal"));
+var _react = _interopRequireDefault(require("react"));
 
 var _reactBeautifulDnd = require("react-beautiful-dnd");
 
@@ -40853,6 +40791,7 @@ var Column = function Column(props) {
       style: getItemStyle(snapshot.isDraggingOver, provided.droppableProps.style)
     }), props.tasks.map(function (task, index) {
       return /*#__PURE__*/_react.default.createElement(_Task.default, {
+        setSelectedCardFunction: props.setSelectedCardFunction,
         key: task.id,
         task: task,
         index: index
@@ -40863,7 +40802,68 @@ var Column = function Column(props) {
 
 var _default = Column;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-beautiful-dnd":"node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js","./Task":"components/Task.js"}],"components/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-beautiful-dnd":"node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js","./Task":"components/Task.js"}],"components/CardModal.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var CardModal = function CardModal(props) {
+  // id = task1 
+  var cardData = "localStorage.getItem(selectedCard)"; // = {title: "title"
+  //            description: "description"}
+
+  var title = "cardData.title";
+  var description = "cardData.description";
+  var isActive = false;
+
+  if (props.selectedCard) {
+    isActive = true;
+  } else {
+    isActive = false;
+  }
+
+  var closeFunction = function closeFunction() {
+    props.setSelectedCard(null);
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", {
+    id: props.id,
+    className: "modal ".concat(isActive ? "is-active" : "")
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "modal-background"
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: "modal-card"
+  }, /*#__PURE__*/_react.default.createElement("header", {
+    className: "modal-card-head"
+  }, /*#__PURE__*/_react.default.createElement("p", {
+    className: "modal-card-title"
+  }, title), /*#__PURE__*/_react.default.createElement("button", {
+    className: "delete",
+    onClick: closeFunction,
+    "aria-label": "close"
+  })), /*#__PURE__*/_react.default.createElement("section", {
+    className: "modal-card-body"
+  }), /*#__PURE__*/_react.default.createElement("footer", {
+    className: "modal-card-foot"
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    className: "button is-success"
+  }, "Save changes"), /*#__PURE__*/_react.default.createElement("button", {
+    className: "button"
+  }, "Cancel"))));
+};
+
+var _default = CardModal;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40878,6 +40878,8 @@ var _reactBeautifulDnd = require("react-beautiful-dnd");
 var _initialData = _interopRequireDefault(require("../initial-data.js"));
 
 var _Column = _interopRequireDefault(require("./Column"));
+
+var _CardModal = _interopRequireDefault(require("./CardModal"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40990,27 +40992,44 @@ var App = function App() {
     }
   };
 
+  var _useState9 = (0, _react.useState)(null),
+      _useState10 = _slicedToArray(_useState9, 2),
+      selectedCard = _useState10[0],
+      setSelectedCard = _useState10[1];
+
+  var setSelectedCardFunction = function setSelectedCardFunction(taskNumber) {
+    if (selectedCard === null) {
+      setSelectedCard(taskNumber);
+    } else {
+      setSelectedCard(null);
+    }
+  };
+
   var columnComponents = getData.columnOrder.map(function (columnId) {
     var column = getData.columns[columnId];
     var tasks = column.taskIds.map(function (taskId) {
       return getData.tasks[taskId];
     });
     return /*#__PURE__*/_react.default.createElement(_Column.default, {
+      setSelectedCardFunction: setSelectedCardFunction,
       key: column.id,
       column: column,
       tasks: tasks
     });
   });
-  return /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.DragDropContext, {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.DragDropContext, {
     onDragEnd: onDragEnd
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "columns"
-  }, columnComponents));
+  }, columnComponents)), /*#__PURE__*/_react.default.createElement(_CardModal.default, {
+    selectedCard: selectedCard,
+    setSelectedCard: setSelectedCard
+  }));
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-beautiful-dnd":"node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js","../initial-data.js":"initial-data.js","./Column":"components/Column.js"}],"main.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-beautiful-dnd":"node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js","../initial-data.js":"initial-data.js","./Column":"components/Column.js","./CardModal":"components/CardModal.js"}],"main.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -41050,7 +41069,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59928" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61963" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

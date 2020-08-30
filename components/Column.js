@@ -26,7 +26,7 @@ const Column = (props) => {
               provided.droppableProps.style
             )}
           >
-            {props.tasks.map((task, index) => <Task key={task.id} task={task} index={index}/>)}
+            {props.tasks.map((task, index) => <Task setSelectedCardFunction={props.setSelectedCardFunction} key={task.id} task={task} index={index}/>)}
             {provided.placeholder}
           </div>
         )}
