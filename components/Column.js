@@ -17,14 +17,6 @@ const Column = (props) => {
           className="column m-lg is-one-fifth has-background-white"
         >
           <div {...provided.dragHandleProps} className="column-title title">
-            {props.tasks.map((task, index) => (
-              <Task
-                setSelectedCardFunction={props.setSelectedCardFunction}
-                key={task.id}
-                task={task}
-                index={index}
-              />
-            ))}
             {provided.placeholder}
             {props.column.title}
           </div>
