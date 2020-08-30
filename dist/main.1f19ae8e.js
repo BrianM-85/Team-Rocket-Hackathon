@@ -28360,6 +28360,67 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _CardModal = _interopRequireDefault(require("./components/CardModal"));
 
+var _reactBeautifulDnd = require("react-beautiful-dnd");
+
+var _Task = _interopRequireDefault(require("./Task"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Column = function Column(props) {
+  var getItemStyle = function getItemStyle(isDraggingOver, droppableStyle) {
+    return _objectSpread({
+      background: isDraggingOver ? "#84DCC6" : "#fff"
+    }, droppableStyle);
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "column m-lg"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "column-title title"
+  }, props.column.title), /*#__PURE__*/_react.default.createElement(_reactBeautifulDnd.Droppable, {
+    droppableId: props.column.id
+  }, function (provided, snapshot) {
+    return /*#__PURE__*/_react.default.createElement("div", _extends({
+      className: "tasklist",
+      ref: provided.innerRef
+    }, provided.droppableProps, {
+      style: getItemStyle(snapshot.isDraggingOver, provided.droppableProps.style)
+    }), props.tasks.map(function (task, index) {
+      return /*#__PURE__*/_react.default.createElement(_Task.default, {
+        key: task.id,
+        task: task,
+        index: index
+      });
+    }), provided.placeholder);
+  }));
+};
+
+var _default = Column;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","react-beautiful-dnd":"node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js","./Task":"components/Task.js"}],"components/App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactBeautifulDnd = require("react-beautiful-dnd");
+
+var _initialData = _interopRequireDefault(require("../initial-data.js"));
+
+var _Column = _interopRequireDefault(require("./Column"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
@@ -28415,12 +28476,12 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _App = _interopRequireDefault(require("./App"));
+var _App = _interopRequireDefault(require("./components/App"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(_App.default, null), document.getElementById('app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./App":"App.js"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./components/App":"components/App.js"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

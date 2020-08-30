@@ -4,7 +4,7 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-# Ignore temp files/compiled files
+# Ignore temp and compiled files
+/node_modules
 /.cache
 /dist
-/node_modules
