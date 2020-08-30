@@ -34,7 +34,7 @@ const CardModal = (props) => {
             aria-label="close"
           ></button>
         </header>
-        <section className="modal-card-body"></section>
+        <section className="modal-card-body"><p>{description}</p></section>
         <footer className="modal-card-foot">
           <button className="button is-success">Save changes</button>
           <button className="button">Cancel</button>
