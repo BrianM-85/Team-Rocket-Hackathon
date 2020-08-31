@@ -3,10 +3,12 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import initialData from "../initial-data.js";
 import Column from "./Column";
 import CardModal from "./CardModal";
+import WarningModal from "./WarningModal.js";
 
 const App = () => {
   var storedValues = JSON.parse(localStorage.getItem("LocalStorageValues"));
   const [getData, setData] = useState(storedValues || initialData);
+  const [deleteInitializer, setDeleteInitializer] = useState(null);
   const [getResult, setResult] = useState({
     draggableId: "task-1",
     type: "TYPE",
@@ -182,6 +184,17 @@ const App = () => {
         setSelectedCard={setSelectedCard}
         getData={getData}
         setData={setData}
+        deleteInitializer={deleteInitializer}
+        setDeleteInitializer={setDeleteInitializer}
+
+      />
+      <WarningModal
+        selectedCard={selectedCard}
+        setSelectedCard={setSelectedCard}
+        getData={getData}
+        setData={setData}
+        deleteInitializer={deleteInitializer}
+        setDeleteInitializer={setDeleteInitializer}
       />
     </div>
   );

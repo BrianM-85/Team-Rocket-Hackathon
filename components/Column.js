@@ -2,6 +2,7 @@ import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Task from "./Task";
 import AddCard from "./AddCard";
+import WarningModal from "./WarningModal";
 const Column = (props) => {
   const getItemStyle = (isDraggingOver, droppableStyle) => ({
     background: isDraggingOver ? "#84DCC6" : "#fff",
@@ -39,6 +40,7 @@ const Column = (props) => {
               >
                 {props.tasks.map((task, index) => (
                   <Task
+                    columnID={props.column.id}
                     setSelectedCardFunction={props.setSelectedCardFunction}
                     key={task.id}
                     task={task}
@@ -49,6 +51,7 @@ const Column = (props) => {
               </div>
             )}
           </Droppable>
+          
         </div>
       )}
     </Draggable>
