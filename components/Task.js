@@ -4,7 +4,7 @@ import { Draggable } from 'react-beautiful-dnd';
 const Task = (props) => {
   
   const getItemStyle = (isDragging, draggableStyle) => ({
-      background: isDragging ? "#A5FFD6" : "#fff",
+      background: isDragging ? "#E0F654" : "#fff",
       ...draggableStyle
   });
 
@@ -15,7 +15,7 @@ const Task = (props) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className="task is-dragging"
+          className="task"
           style={getItemStyle(
             snapshot.isDragging,
             provided.draggableProps.style

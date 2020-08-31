@@ -40726,7 +40726,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var Task = function Task(props) {
   var getItemStyle = function getItemStyle(isDragging, draggableStyle) {
     return _objectSpread({
-      background: isDragging ? "#A5FFD6" : "#fff"
+      background: isDragging ? "#E0F654" : "#fff"
     }, draggableStyle);
   };
 
@@ -40740,7 +40740,7 @@ var Task = function Task(props) {
       },
       ref: provided.innerRef
     }, provided.draggableProps, provided.dragHandleProps, {
-      className: "task is-dragging",
+      className: "task",
       style: getItemStyle(snapshot.isDragging, provided.draggableProps.style)
     }), props.task.content);
   });
@@ -40830,9 +40830,9 @@ var AddCard = function AddCard(props) {
   };
 
   var _useState = (0, _react.useState)( /*#__PURE__*/_react.default.createElement("p", {
-    className: "is-primary has-text-dark",
+    className: "is-primary has-text-dark new-task",
     onClick: expandCard
-  }, "Add a new task")),
+  }, /*#__PURE__*/_react.default.createElement("strong", null, "+ New Task"))),
       _useState2 = _slicedToArray(_useState, 2),
       cardFields = _useState2[0],
       setCardFields = _useState2[1];
@@ -40875,7 +40875,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var Column = function Column(props) {
   var getItemStyle = function getItemStyle(isDraggingOver, droppableStyle) {
     return _objectSpread({
-      background: isDraggingOver ? "#84DCC6" : "#fff"
+      background: isDraggingOver ? "#84DCC6" : "#FCECF0"
     }, droppableStyle);
   };
 
@@ -40886,7 +40886,7 @@ var Column = function Column(props) {
     return /*#__PURE__*/_react.default.createElement("div", _extends({
       ref: provided.innerRef
     }, provided.draggableProps, {
-      className: "column m-sm is-one-fifth has-background-white"
+      className: "column m-sm is-one-fifth has-background-danger-light"
     }), /*#__PURE__*/_react.default.createElement("h6", _extends({}, provided.dragHandleProps, {
       className: "title is-6"
     }), provided.placeholder, props.column.title), /*#__PURE__*/_react.default.createElement(_AddCard.default, {
@@ -41130,6 +41130,23 @@ var App = function App() {
     }
   };
 
+  var addColumnClick = function addColumnClick(event) {
+    event.preventDefault();
+    var columnName = document.getElementById("column_name").value;
+    var newColumnName = "column-" + (Object.keys(getData.columns).length + 1);
+    var newColumn = {
+      id: newColumnName,
+      title: columnName,
+      taskIds: ["task-0"]
+    };
+    var newColumnOrder = getData.columnOrder;
+    newColumnOrder.push(newColumnName);
+    setData(_objectSpread(_objectSpread({}, getData), {}, {
+      columns: _objectSpread(_objectSpread({}, getData.columns), {}, _defineProperty({}, newColumnName, newColumn)),
+      columnOrder: newColumnOrder
+    }));
+  };
+
   var _useState9 = (0, _react.useState)(null),
       _useState10 = _slicedToArray(_useState9, 2),
       selectedCard = _useState10[0],
@@ -41173,28 +41190,21 @@ var App = function App() {
       ref: provided.innerRef
     }, provided.droppableProps, {
       className: "columns scrolling-wrapper"
-    }), columnComponents, provided.placeholder)));
-  })), /*#__PURE__*/_react.default.createElement("label", null, "New Column:"), /*#__PURE__*/_react.default.createElement("input", {
-    type: "text",
-    id: "column_name",
-    name: "column_name"
-  }), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: function onClick() {
-      var columnName = document.getElementById("column_name").value;
-      var newColumnName = "column-" + (Object.keys(getData.columns).length + 1);
-      var newColumn = {
-        id: newColumnName,
-        title: columnName,
-        taskIds: ["task-0"]
-      };
-      var newColumnOrder = getData.columnOrder;
-      newColumnOrder.push(newColumnName);
-      setData(_objectSpread(_objectSpread({}, getData), {}, {
-        columns: _objectSpread(_objectSpread({}, getData.columns), {}, _defineProperty({}, newColumnName, newColumn)),
-        columnOrder: newColumnOrder
-      }));
-    }
-  }, "Create"), /*#__PURE__*/_react.default.createElement(_CardModal.default, {
+    }), columnComponents, provided.placeholder, /*#__PURE__*/_react.default.createElement("div", {
+      className: "add-column"
+    }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("strong", null, "+ Add Column")), /*#__PURE__*/_react.default.createElement("span", {
+      className: "level has-addons"
+    }, /*#__PURE__*/_react.default.createElement("input", {
+      className: "input is-small level-right",
+      type: "text",
+      id: "column_name",
+      name: "column_name",
+      placeholder: "New Title"
+    }), /*#__PURE__*/_react.default.createElement("button", {
+      className: "button is-primary is-small level-left",
+      onClick: addColumnClick
+    }, /*#__PURE__*/_react.default.createElement("strong", null, "+")))))));
+  })), /*#__PURE__*/_react.default.createElement(_CardModal.default, {
     selectedCard: selectedCard,
     setSelectedCard: setSelectedCard,
     getData: getData,
@@ -41244,7 +41254,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58563" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59062" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

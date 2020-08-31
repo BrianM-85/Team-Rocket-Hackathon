@@ -4,7 +4,7 @@ import Task from "./Task";
 import AddCard from "./AddCard";
 const Column = (props) => {
   const getItemStyle = (isDraggingOver, droppableStyle) => ({
-    background: isDraggingOver ? "#84DCC6" : "#fff",
+    background: isDraggingOver ? "#84DCC6" : "#FCECF0",
     ...droppableStyle,
   });
 
@@ -14,7 +14,7 @@ const Column = (props) => {
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          className="column m-sm is-one-fifth has-background-white"
+          className="column m-sm is-one-fifth has-background-danger-light"
         >
           <h6 {...provided.dragHandleProps} className="title is-6">
             {provided.placeholder}
