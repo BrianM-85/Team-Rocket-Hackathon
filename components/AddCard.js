@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const AddCard = (props) => {
+  
   const saveTask = () => {
     let taskID = "task-" + Object.keys(props.getData.tasks).length;
     let taskContent = document.getElementById("taskTitle").value;
@@ -22,8 +23,8 @@ const AddCard = (props) => {
   };
   const collapseCard = () => {
     setCardFields(
-      <p className="is-primary has-text-dark" onClick={expandCard}>
-        Add a new task
+      <p className="new-task is-primary has-text-dark" onClick={expandCard}>
+        <strong>+ New Task</strong>
       </p>
     );
   };
@@ -49,7 +50,7 @@ const AddCard = (props) => {
     );
   };
   const [cardFields, setCardFields] = useState(
-    <p className="is-primary has-text-dark new-task" onClick={expandCard}>
+    <p className="new-task is-primary has-text-dark" onClick={expandCard}>
       <strong>+ New Task</strong>
     </p>
   );

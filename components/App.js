@@ -5,6 +5,7 @@ import Column from "./Column";
 import CardModal from "./CardModal";
 
 const App = () => {
+
   var storedValues = JSON.parse(localStorage.getItem("LocalStorageValues"));
   const [getData, setData] = useState(storedValues || initialData);
   const [getResult, setResult] = useState({
@@ -111,7 +112,7 @@ const App = () => {
     let newColumn = {
       id: newColumnName,
       title: columnName,
-      taskIds: ["task-0"],
+      taskIds: [],
     };
     let newColumnOrder = getData.columnOrder;
     newColumnOrder.push(newColumnName);
