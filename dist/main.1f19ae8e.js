@@ -40888,7 +40888,9 @@ var Column = function Column(props) {
     }, provided.draggableProps, {
       className: "column m-sm is-one-fifth has-background-danger-light"
     }), /*#__PURE__*/_react.default.createElement("h6", _extends({}, provided.dragHandleProps, {
-      className: "title is-6"
+      className: "title is-6",
+      suppressContentEditableWarning: true,
+      contentEditable: "true"
     }), provided.placeholder, props.column.title), /*#__PURE__*/_react.default.createElement(_AddCard.default, {
       columnID: props.column.id,
       getData: props.getData,
@@ -41254,7 +41256,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59062" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57627" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
