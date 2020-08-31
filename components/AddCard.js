@@ -49,8 +49,8 @@ const AddCard = (props) => {
     );
   };
   const [cardFields, setCardFields] = useState(
-    <p className="is-primary has-text-dark" onClick={expandCard}>
-      Add a new task
+    <p className="is-primary has-text-dark new-task" onClick={expandCard}>
+      <strong>+ New Task</strong>
     </p>
   );
 

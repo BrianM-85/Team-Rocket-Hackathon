@@ -40724,11 +40724,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var Task = function Task(props) {
-  var draggingStatus = props.isDragging ? 'task is-dragging' : 'task';
-
   var getItemStyle = function getItemStyle(isDragging, draggableStyle) {
     return _objectSpread({
-      background: isDragging ? "#A5FFD6" : "#fff"
+      background: isDragging ? "#E0F654" : "#fff"
     }, draggableStyle);
   };
 
@@ -40742,7 +40740,7 @@ var Task = function Task(props) {
       },
       ref: provided.innerRef
     }, provided.draggableProps, provided.dragHandleProps, {
-      className: draggingStatus,
+      className: "task",
       style: getItemStyle(snapshot.isDragging, provided.draggableProps.style)
     }), props.task.content);
   });
@@ -40832,9 +40830,9 @@ var AddCard = function AddCard(props) {
   };
 
   var _useState = (0, _react.useState)( /*#__PURE__*/_react.default.createElement("p", {
-    className: "is-primary has-text-dark",
+    className: "is-primary has-text-dark new-task",
     onClick: expandCard
-  }, "Add a new task")),
+  }, /*#__PURE__*/_react.default.createElement("strong", null, "+ New Task"))),
       _useState2 = _slicedToArray(_useState, 2),
       cardFields = _useState2[0],
       setCardFields = _useState2[1];
@@ -40877,7 +40875,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var Column = function Column(props) {
   var getItemStyle = function getItemStyle(isDraggingOver, droppableStyle) {
     return _objectSpread({
-      background: isDraggingOver ? "#84DCC6" : "#fff"
+      background: isDraggingOver ? "#84DCC6" : "#FCECF0"
     }, droppableStyle);
   };
 
@@ -40888,16 +40886,11 @@ var Column = function Column(props) {
     return /*#__PURE__*/_react.default.createElement("div", _extends({
       ref: provided.innerRef
     }, provided.draggableProps, {
-      className: "column m-lg is-one-fifth has-background-white"
-    }), /*#__PURE__*/_react.default.createElement("div", _extends({}, provided.dragHandleProps, {
-      className: "column-title title"
-    }), props.tasks.map(function (task, index) {
-      return /*#__PURE__*/_react.default.createElement(_Task.default, {
-        setSelectedCardFunction: props.setSelectedCardFunction,
-        key: task.id,
-        task: task,
-        index: index
-      });
+      className: "column m-sm is-one-fifth has-background-danger-light"
+    }), /*#__PURE__*/_react.default.createElement("h6", _extends({}, provided.dragHandleProps, {
+      className: "title is-6",
+      suppressContentEditableWarning: true,
+      contentEditable: "true"
     }), provided.placeholder, props.column.title), /*#__PURE__*/_react.default.createElement(_AddCard.default, {
       columnID: props.column.id,
       getData: props.getData,
@@ -40940,10 +40933,6 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var CardModal = function CardModal(props) {
-  // id = task1
-  var cardData = "localStorage.getItem(selectedCard)"; // = {title: "title"
-  //            description: "description"}
-
   var title;
   var description;
 
@@ -40989,7 +40978,8 @@ var CardModal = function CardModal(props) {
   }, /*#__PURE__*/_react.default.createElement("button", {
     className: "button is-success"
   }, "Save changes"), /*#__PURE__*/_react.default.createElement("button", {
-    className: "button"
+    className: "button",
+    onClick: closeFunction
   }, "Cancel"))));
 };
 
@@ -41142,6 +41132,23 @@ var App = function App() {
     }
   };
 
+  var addColumnClick = function addColumnClick(event) {
+    event.preventDefault();
+    var columnName = document.getElementById("column_name").value;
+    var newColumnName = "column-" + (Object.keys(getData.columns).length + 1);
+    var newColumn = {
+      id: newColumnName,
+      title: columnName,
+      taskIds: ["task-0"]
+    };
+    var newColumnOrder = getData.columnOrder;
+    newColumnOrder.push(newColumnName);
+    setData(_objectSpread(_objectSpread({}, getData), {}, {
+      columns: _objectSpread(_objectSpread({}, getData.columns), {}, _defineProperty({}, newColumnName, newColumn)),
+      columnOrder: newColumnOrder
+    }));
+  };
+
   var _useState9 = (0, _react.useState)(null),
       _useState10 = _slicedToArray(_useState9, 2),
       selectedCard = _useState10[0],
@@ -41184,29 +41191,22 @@ var App = function App() {
     }, /*#__PURE__*/_react.default.createElement("div", _extends({
       ref: provided.innerRef
     }, provided.droppableProps, {
-      className: "columns"
-    }), columnComponents, provided.placeholder)));
-  })), /*#__PURE__*/_react.default.createElement("label", null, "New Column:"), /*#__PURE__*/_react.default.createElement("input", {
-    type: "text",
-    id: "column_name",
-    name: "column_name"
-  }), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: function onClick() {
-      var columnName = document.getElementById("column_name").value;
-      var newColumnName = "column-" + (Object.keys(getData.columns).length + 1);
-      var newColumn = {
-        id: newColumnName,
-        title: columnName,
-        taskIds: ["task-0"]
-      };
-      var newColumnOrder = getData.columnOrder;
-      newColumnOrder.push(newColumnName);
-      setData(_objectSpread(_objectSpread({}, getData), {}, {
-        columns: _objectSpread(_objectSpread({}, getData.columns), {}, _defineProperty({}, newColumnName, newColumn)),
-        columnOrder: newColumnOrder
-      }));
-    }
-  }, "Create"), /*#__PURE__*/_react.default.createElement(_CardModal.default, {
+      className: "columns scrolling-wrapper"
+    }), columnComponents, provided.placeholder, /*#__PURE__*/_react.default.createElement("div", {
+      className: "add-column"
+    }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("strong", null, "+ Add Column")), /*#__PURE__*/_react.default.createElement("span", {
+      className: "level has-addons"
+    }, /*#__PURE__*/_react.default.createElement("input", {
+      className: "input is-small level-right",
+      type: "text",
+      id: "column_name",
+      name: "column_name",
+      placeholder: "New Title"
+    }), /*#__PURE__*/_react.default.createElement("button", {
+      className: "button is-primary is-small level-left",
+      onClick: addColumnClick
+    }, /*#__PURE__*/_react.default.createElement("strong", null, "+")))))));
+  })), /*#__PURE__*/_react.default.createElement(_CardModal.default, {
     selectedCard: selectedCard,
     setSelectedCard: setSelectedCard,
     getData: getData,
@@ -41256,7 +41256,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51055" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57627" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

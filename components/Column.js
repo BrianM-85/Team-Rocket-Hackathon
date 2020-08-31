@@ -5,7 +5,7 @@ import AddCard from "./AddCard";
 import WarningModal from "./WarningModal";
 const Column = (props) => {
   const getItemStyle = (isDraggingOver, droppableStyle) => ({
-    background: isDraggingOver ? "#84DCC6" : "#fff",
+    background: isDraggingOver ? "#84DCC6" : "#FCECF0",
     ...droppableStyle,
   });
 
@@ -15,12 +15,15 @@ const Column = (props) => {
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          className="column m-lg is-one-fifth has-background-white"
+          className="column m-sm is-one-fifth has-background-danger-light"
         >
-          <div {...provided.dragHandleProps} className="column-title title">
+          <h6 {...provided.dragHandleProps} 
+          className="title is-6"
+          suppressContentEditableWarning
+          contentEditable="true">
             {provided.placeholder}
             {props.column.title}
-          </div>
+          </h6>
           <AddCard
             columnID={props.column.id}
             getData={props.getData}
