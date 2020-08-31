@@ -102,6 +102,29 @@ const App = () => {
     }
   };
 
+  const addColumnClick = (event) => {
+    event.preventDefault();
+
+    let columnName = document.getElementById("column_name").value;
+    let newColumnName =
+      "column-" + (Object.keys(getData.columns).length + 1);
+    let newColumn = {
+      id: newColumnName,
+      title: columnName,
+      taskIds: ["task-0"],
+    };
+    let newColumnOrder = getData.columnOrder;
+    newColumnOrder.push(newColumnName);
+    setData({
+      ...getData,
+      columns: {
+        ...getData.columns,
+        [newColumnName]: newColumn,
+      },
+      columnOrder: newColumnOrder,
+    });
+  }
+
   const [selectedCard, setSelectedCard] = useState(null);
   const setSelectedCardFunction = (taskNumber) => {
     if (selectedCard === null) {
@@ -141,42 +164,24 @@ const App = () => {
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className="columns"
+                  className="columns scrolling-wrapper"
                 >
                   {columnComponents}
                   {provided.placeholder}
+                  <div className="add-column">
+                    <label><strong>+ Add Column</strong></label>
+                    <span className="level has-addons">
+                      <input className="input is-small level-right" type="text" id="column_name" name="column_name" placeholder="New Title" />
+                      <button className="button is-primary is-small level-left" onClick={addColumnClick}><strong>+</strong></button>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           )}
         </Droppable>
       </DragDropContext>
-      <label>New Column:</label>
-      <input type="text" id="column_name" name="column_name" />
-      <button
-        onClick={() => {
-          let columnName = document.getElementById("column_name").value;
-          let newColumnName =
-            "column-" + (Object.keys(getData.columns).length + 1);
-          let newColumn = {
-            id: newColumnName,
-            title: columnName,
-            taskIds: ["task-0"],
-          };
-          let newColumnOrder = getData.columnOrder;
-          newColumnOrder.push(newColumnName);
-          setData({
-            ...getData,
-            columns: {
-              ...getData.columns,
-              [newColumnName]: newColumn,
-            },
-            columnOrder: newColumnOrder,
-          });
-        }}
-      >
-        Create
-      </button>
+
       <CardModal
         selectedCard={selectedCard}
         setSelectedCard={setSelectedCard}
