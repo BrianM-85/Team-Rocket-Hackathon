@@ -40892,7 +40892,9 @@ var Column = function Column(props) {
     }, provided.draggableProps, provided.dragHandleProps, {
       className: "column m-sm is-one-fifth has-background-danger-light"
     }), /*#__PURE__*/_react.default.createElement("h6", {
-      className: "title is-6"
+      className: "title is-6",
+      suppressContentEditableWarning: true,
+      contentEditable: "true"
     }, provided.placeholder, props.column.title), /*#__PURE__*/_react.default.createElement(_AddCard.default, {
       columnID: props.column.id,
       getData: props.getData,

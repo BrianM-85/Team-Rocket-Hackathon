@@ -19,7 +19,10 @@ const Column = (props) => {
           {...provided.dragHandleProps}
           className="column m-sm is-one-fifth has-background-danger-light"
         >
-          <h6 className="title is-6">
+          <h6
+            className="title is-6"
+            suppressContentEditableWarning
+            contentEditable="true">
             {provided.placeholder}
             {props.column.title}
           </h6>
