@@ -10,7 +10,9 @@ const CardModal = (props) => {
     }
   }
   let isActive = false;
-
+  const deleteOnClickFunction = () => {
+    props.setDeleteInitializer("is-active")
+  }
   if (props.selectedCard) {
     isActive = true;
   } else {
@@ -20,7 +22,7 @@ const CardModal = (props) => {
     props.setSelectedCard(null);
   };
   return (
-    <div id={props.id} className={`modal ${isActive ? "is-active" : ""}`}>
+    <div id={props.selectedCard} className={`modal ${isActive ? "is-active" : ""}`}>
       <div className="modal-background"></div>
       <div className="modal-card">
         <header className="modal-card-head">
@@ -35,9 +37,15 @@ const CardModal = (props) => {
           <p>{description}</p>
         </section>
         <footer className="modal-card-foot">
-          <button className="button is-success">Save changes</button>
-          <button className="button" 
-            onClick={closeFunction}>Cancel</button>
+          <button
+            className="button is-warning"
+            onClick={() => deleteOnClickFunction()}
+          >
+            Delete Task
+          </button>
+          <button className="button" onClick={closeFunction}>
+            Cancel
+          </button>
         </footer>
       </div>
     </div>

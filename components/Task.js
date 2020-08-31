@@ -1,5 +1,5 @@
-import React from 'react';
-import { Draggable } from 'react-beautiful-dnd';
+import React, {Fragment} from "react";
+import { Draggable } from "react-beautiful-dnd";
 
 const Task = (props) => {
   
@@ -32,7 +32,8 @@ const Task = (props) => {
         </div>
       )}
     </Draggable>
-  )
-}
+    
+  );
+};
 
 export default Task;
