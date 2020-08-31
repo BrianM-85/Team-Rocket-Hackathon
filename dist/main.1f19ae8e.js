@@ -40635,10 +40635,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var initialData = {
   tasks: {
-    'task-0': {
-      id: 'task-0',
-      content: 'Example task'
-    },
     'task-1': {
       id: 'task-1',
       content: 'Take out the garbage'
@@ -40726,7 +40722,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var Task = function Task(props) {
   var getItemStyle = function getItemStyle(isDragging, draggableStyle) {
     return _objectSpread({
-      background: isDragging ? "#E0F654" : "#fff"
+      background: isDragging ? "#E0F654" : "#fff",
+      border: isDragging ? "1.5px solid #E0F654" : "1.5px solid #84DCC6"
     }, draggableStyle);
   };
 
@@ -40742,7 +40739,14 @@ var Task = function Task(props) {
     }, provided.draggableProps, provided.dragHandleProps, {
       className: "task",
       style: getItemStyle(snapshot.isDragging, provided.draggableProps.style)
-    }), props.task.content);
+    }), /*#__PURE__*/_react.default.createElement("p", {
+      onMouseEnter: function onMouseEnter(event) {
+        return event.target.style.background = "#84DCC6";
+      },
+      onMouseLeave: function onMouseLeave(event) {
+        return event.target.style.background = "";
+      }
+    }, props.task.content));
   });
 };
 
@@ -40799,9 +40803,9 @@ var AddCard = function AddCard(props) {
 
   var collapseCard = function collapseCard() {
     setCardFields( /*#__PURE__*/_react.default.createElement("p", {
-      className: "is-primary has-text-dark",
+      className: "new-task is-primary has-text-dark",
       onClick: expandCard
-    }, "Add a new task"));
+    }, /*#__PURE__*/_react.default.createElement("strong", null, "+ New Task")));
   };
 
   var expandCard = function expandCard() {
@@ -40830,7 +40834,7 @@ var AddCard = function AddCard(props) {
   };
 
   var _useState = (0, _react.useState)( /*#__PURE__*/_react.default.createElement("p", {
-    className: "is-primary has-text-dark new-task",
+    className: "new-task is-primary has-text-dark",
     onClick: expandCard
   }, /*#__PURE__*/_react.default.createElement("strong", null, "+ New Task"))),
       _useState2 = _slicedToArray(_useState, 2),
@@ -40885,11 +40889,11 @@ var Column = function Column(props) {
   }, function (provided) {
     return /*#__PURE__*/_react.default.createElement("div", _extends({
       ref: provided.innerRef
-    }, provided.draggableProps, {
+    }, provided.draggableProps, provided.dragHandleProps, {
       className: "column m-sm is-one-fifth has-background-danger-light"
-    }), /*#__PURE__*/_react.default.createElement("h6", _extends({}, provided.dragHandleProps, {
+    }), /*#__PURE__*/_react.default.createElement("h6", {
       className: "title is-6"
-    }), provided.placeholder, props.column.title), /*#__PURE__*/_react.default.createElement(_AddCard.default, {
+    }, provided.placeholder, props.column.title), /*#__PURE__*/_react.default.createElement(_AddCard.default, {
       columnID: props.column.id,
       getData: props.getData,
       setData: props.setData
@@ -41137,7 +41141,7 @@ var App = function App() {
     var newColumn = {
       id: newColumnName,
       title: columnName,
-      taskIds: ["task-0"]
+      taskIds: []
     };
     var newColumnOrder = getData.columnOrder;
     newColumnOrder.push(newColumnName);

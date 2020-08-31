@@ -19,15 +19,17 @@ body {
   background-size: 100%; }
 
 .scrolling-wrapper {
-  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto; }
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; }
+  .scrolling-wrapper::-webkit-scrollbar {
+    display: none; }
   .scrolling-wrapper .column {
     flex: 0 0 auto; }
 
 .container {
-  padding-top: 10%; }
+  padding-top: 100px; }
 
 .column {
   border: 1px solid lightgrey;
@@ -70,6 +72,9 @@ span {
   font-variant-caps: all-small-caps;
   letter-spacing: .08em;
   text-align: center; }
+
+.new-task:hover {
+  background-color: #84DCC6; }
 
 .center {
   display: flex;
