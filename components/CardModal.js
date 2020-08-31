@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 
 const CardModal = (props) => {
-  // id = task1 
   const cardData = "localStorage.getItem(selectedCard)"
-  // = {title: "title"
-//            description: "description"}
-
   const title = "cardData.title"
   const description = "cardData.description"
 
