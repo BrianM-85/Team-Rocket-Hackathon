@@ -6,6 +6,7 @@ import CardModal from "./CardModal";
 import WarningModal from "./WarningModal.js";
 
 const App = () => {
+
   var storedValues = JSON.parse(localStorage.getItem("LocalStorageValues"));
   const [getData, setData] = useState(storedValues || initialData);
   const [deleteInitializer, setDeleteInitializer] = useState(null);
@@ -113,7 +114,7 @@ const App = () => {
     let newColumn = {
       id: newColumnName,
       title: columnName,
-      taskIds: ["task-0"],
+      taskIds: [],
     };
     let newColumnOrder = getData.columnOrder;
     newColumnOrder.push(newColumnName);
