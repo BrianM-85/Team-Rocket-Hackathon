@@ -1,26 +1,14 @@
-# Team-Rocket-Hackathon - A Bulma Theme
+# Team-Rocket-Hackathon - Project Triathlon - A Bulma Theme
 
 ## What this is
 
-This is a Bulma theme. It is a way for developers to quickly customize Bulma for their own needs. Bulma is great in that it uses very clearly defined variables and overrides to let devs change its look and feel.
+This project was created for MintBean's JavaScript Olympics Hackathon that ran for 72 hours starting on Friday 8/28/20. The challenge was to create a front-end-only KanBan board. LocalStorage is used to persist user data across sessions.
 
 ## How to use it
 
-`npm start` OR `yarn start` will run the server. You can use it to developer your theme.
+`npm start` OR `yarn start` will run the server. 
 
 You're already set up with `src/_overrides.scss` and `src/_variables.scss` files. You don't need to do anything more to start theming.
-
-## How to use your theme in a new site
-
-### Option A - Just keep using this project (simple)
-
-Delete everything inside the `body` tag of `index.html` and start from scratch.
-
-### Option B - Copy/paste the theme over to your project (advanced)
-
-Simply copy the contents of `src` into your new project and `@import` the `src/bulma-theme.scss` file.
-
-To do this, you'll have to install Bulma and SCSS on your new project.
 
 ## About
 
